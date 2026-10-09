@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equipment | Optimus Medical</title>
+  <meta name="description" content="Browse diagnostic, patient-care, surgical, laboratory and neonatal equipment from Optimus Medical. Select what you need and request a quote." />
+  <meta name="theme-color" content="#08262a" />
+  <link rel="icon" href="assets/logo/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       Tokens: neutral and clinical. Brand teal only for actions and selection.
+       All px sizes are written as N*var(--u): calc(1 * var(--u)) up to a calc(1920 * var(--u)) screen, then
+       scaling up proportionally, so 4K looks like a larger 1920 layout.
+       ========================================================= */
+    :root {
+      --u: clamp(1px, calc(100vw / 1920), 2px);
+
+      --bg: #e9efef;
+      --night-bg: #08262a;
+      --on-dark: #eef9fa;
+      --on-dark-soft: #93b6b8;
+      --surface: #f8fbfb;
+      --tint: #dfe8e8;
+      --ink: #0f1f21;
+      --ink-2: #3a4a4c;
+      --ink-soft: #66777a;
+      --line: #d3dfdf;
+      --teal: #1f6b6e;
+      --teal-ink: #164f52;
+      --cyan: #12bcd6;
+      --night: #0f1f21;
+
+      --wrap: calc(1360 * var(--u));
+      --gutter: clamp(calc(20 * var(--u)), 7vw, calc(160 * var(--u)));
+      --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --ease: cubic-bezier(.2,.75,.2,1);
+      --spring: cubic-bezier(.34,1.56,.64,1);
+      --shadow: 0 calc(1 * var(--u)) calc(2 * var(--u)) rgba(15,31,33,.05), 0 calc(12 * var(--u)) calc(32 * var(--u)) -18px rgba(15,31,33,.25);
+      --gap: clamp(calc(14 * var(--u)), 1.5vw, calc(24 * var(--u)));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: calc(16 * var(--u)); -webkit-text-size-adjust: 100%; background: var(--bg); }
+    body { margin: 0; min-height: 100vh; font-family: var(--font); font-size: calc(16 * var(--u)); line-height: 1.5; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+    body.is-leaving { opacity: 0; transition: opacity .35s ease; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    :focus-visible { outline: calc(2 * var(--u)) solid var(--teal); outline-offset: calc(3 * var(--u)); border-radius: calc(8 * var(--u)); }
+    .wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+    .glass { background: rgba(255,255,255,.72); border: calc(1 * var(--u)) solid rgba(15,31,33,.08); backdrop-filter: blur(calc(16 * var(--u))) saturate(160%); -webkit-backdrop-filter: blur(calc(16 * var(--u))) saturate(160%); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: calc(10 * var(--u)); white-space: nowrap; padding: calc(13 * var(--u)) calc(20 * var(--u)); border-radius: calc(999 * var(--u)); border: 0; font-weight: 600; font-size: calc(15 * var(--u)); font-stretch: 105%; line-height: 1; text-decoration: none; cursor: pointer; transition: background-color .2s, color .2s; }
+    .btn svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+    .btn--teal { background: var(--teal); color: #fff; }
+    .btn--teal:hover { background: var(--teal-ink); }
+
+    /* =========================================================
+       Intro: logo animation when arriving from the homepage
+       ========================================================= */
+    .intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: radial-gradient(50% 50% at 50% 45%, rgba(18,188,214,.12), transparent 70%), var(--night-bg); }
+    .intro[hidden] { display: none; }
+    .intro__mark { display: flex; flex-direction: column; align-items: center; gap: calc(22 * var(--u)); }
+    .intro svg { width: calc(128 * var(--u)); height: calc(128 * var(--u)); overflow: visible; }
+    .intro .p { transform-box: view-box; transform-origin: calc(250 * var(--u)) calc(250 * var(--u)); }
+    .intro .p-cyan { animation: i-cyan 1.05s var(--ease) .05s both; }
+    .intro .p-teal { animation: i-teal 1.05s var(--ease) .05s both; }
+    .intro__word { font-size: calc(22 * var(--u)); font-weight: 700; font-stretch: 115%; letter-spacing: -.01em; color: var(--on-dark); clip-path: inset(0 100% 0 0); animation: i-word .7s var(--ease) .6s both; }
+    .intro__dest { display: flex; flex-direction: column; align-items: center; gap: calc(12 * var(--u)); margin-top: calc(6 * var(--u)); opacity: 0; animation: i-dest .5s var(--ease) .95s both; }
+    .intro__dest span { font-size: calc(14 * var(--u)); font-weight: 500; color: var(--on-dark-soft); }
+    .intro__dest b { color: var(--on-dark); font-weight: 600; }
+    .intro__bar { position: relative; width: calc(160 * var(--u)); height: calc(2 * var(--u)); border-radius: calc(2 * var(--u)); overflow: hidden; background: rgba(238,249,250,.14); }
+    .intro__bar::after { content: ""; position: absolute; inset: 0; background: var(--cyan); box-shadow: 0 0 calc(10 * var(--u)) rgba(18,188,214,.7); transform-origin: left; transform: scaleX(0); animation: i-bar .85s cubic-bezier(.6,0,.3,1) 1s both; }
+    @keyframes i-dest { from { opacity: 0; transform: translateY(calc(8 * var(--u))); } to { opacity: 1; transform: none; } }
+    @keyframes i-bar { to { transform: scaleX(1); } }
+    @keyframes i-cyan { from { transform: rotate(-140deg) scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes i-teal { from { transform: rotate(140deg) scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes i-word { to { clip-path: inset(0 0 0 0); } }
+    .intro.is-leaving { animation: i-out .75s cubic-bezier(.7,0,.2,1) forwards; }
+    .intro.is-leaving .intro__mark { animation: i-mark-out .55s ease forwards; }
+    @keyframes i-out { to { clip-path: inset(0 0 100% 0); } }
+    @keyframes i-mark-out { to { transform: translateY(-24px); opacity: 0; } }
+    .has-intro .page { opacity: 0; transform: translateY(calc(24 * var(--u))); }
+    .page { transition: opacity .8s var(--ease) .1s, transform .9s var(--ease) .1s; }
+
+    /* =========================================================
+       Header: back button, title
+       ========================================================= */
+    .head { position: relative; padding: clamp(calc(24 * var(--u)), 3vw, calc(40 * var(--u))) 0 clamp(calc(72 * var(--u)), 7vw, calc(104 * var(--u))); color: var(--on-dark); background: radial-gradient(45% 90% at 85% 0%, rgba(18,188,214,.16), transparent 70%), radial-gradient(40% 80% at 0% 100%, rgba(31,107,110,.45), transparent 70%), var(--night-bg); }
+    .back { display: inline-flex; align-items: center; gap: calc(10 * var(--u)); padding: calc(9 * var(--u)) calc(16 * var(--u)) calc(9 * var(--u)) calc(10 * var(--u)); border-radius: calc(999 * var(--u)); font-size: calc(14 * var(--u)); font-weight: 550; text-decoration: none; color: var(--on-dark); background: rgba(238,249,250,.06); border: calc(1 * var(--u)) solid rgba(238,249,250,.16); transition: background-color .25s, transform .3s var(--ease); }
+    .back:hover { background: rgba(238,249,250,.12); transform: translateX(-3px); }
+    .back:hover { color: var(--ink); transform: translateX(-3px); }
+    .back i { display: grid; place-items: center; width: calc(26 * var(--u)); height: calc(26 * var(--u)); border-radius: 50%; background: rgba(238,249,250,.1); color: var(--cyan); }
+    .back svg { width: calc(13 * var(--u)); height: calc(13 * var(--u)); transform: rotate(180deg); }
+    .head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: calc(16 * var(--u)) calc(40 * var(--u)); margin-top: clamp(calc(40 * var(--u)), 6vw, calc(88 * var(--u))); }
+    .head h1 { margin: 0; font-size: clamp(calc(42 * var(--u)), 1rem + 4.4vw, calc(92 * var(--u))); font-weight: 800; font-stretch: 122%; letter-spacing: -.04em; line-height: .9; color: #fff; }
+    .head__meta { display: flex; gap: calc(10 * var(--u)); flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+    .head__meta li { padding: calc(8 * var(--u)) calc(14 * var(--u)); border-radius: calc(999 * var(--u)); border: calc(1 * var(--u)) solid rgba(238,249,250,.16); font-size: calc(13.5 * var(--u)); color: var(--on-dark-soft); }
+
+    /* =========================================================
+       Sticky filters (glass) + count / grid switch
+       ========================================================= */
+    .toolbar { position: sticky; top: calc(14 * var(--u)); z-index: 40; margin-top: -34px; padding: 0 0 calc(16 * var(--u)); pointer-events: none; }
+    .toolbar .wrap { display: flex; justify-content: center; }
+    .filters { position: relative; display: flex; gap: calc(2 * var(--u)); max-width: 100%; padding: calc(6 * var(--u)); border-radius: calc(999 * var(--u)); overflow-x: auto; scrollbar-width: none; pointer-events: auto; box-shadow: var(--shadow); }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters__glow { position: absolute; top: calc(6 * var(--u)); bottom: calc(6 * var(--u)); left: 0; width: 0; border-radius: calc(999 * var(--u)); background: var(--ink); transition: transform .5s var(--ease), width .5s var(--ease); }
+    .filter { position: relative; z-index: 1; flex: none; display: inline-flex; align-items: center; gap: calc(8 * var(--u)); padding: calc(10 * var(--u)) calc(16 * var(--u)); border: 0; border-radius: calc(999 * var(--u)); background: transparent; cursor: pointer;
+      font-size: calc(14.5 * var(--u)); font-weight: 550; font-stretch: 104%; color: var(--ink-2); white-space: nowrap; transition: color .35s ease; }
+    .filter:hover { color: var(--ink); }
+    .filter[aria-pressed="true"] { color: #fff; }
+    .filter small { font-size: calc(11.5 * var(--u)); font-weight: 600; opacity: .55; font-variant-numeric: tabular-nums; }
+
+    .viewbar { padding-top: clamp(8px, 1.2vw, 16px); display: flex; align-items: center; justify-content: space-between; margin-bottom: clamp(calc(20 * var(--u)), 2.4vw, calc(32 * var(--u))); }
+    .count { margin: 0; font-size: calc(14 * var(--u)); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .count b { color: var(--ink); font-weight: 650; }
+    .density { display: flex; gap: calc(2 * var(--u)); padding: calc(4 * var(--u)); border-radius: calc(12 * var(--u)); background: var(--surface); border: calc(1 * var(--u)) solid var(--line); }
+    .density button { display: grid; place-items: center; width: calc(40 * var(--u)); height: calc(34 * var(--u)); border: 0; border-radius: calc(9 * var(--u)); background: transparent; color: var(--ink-soft); cursor: pointer; transition: background-color .25s, color .25s; }
+    .density button:hover { color: var(--ink); }
+    .density button[aria-pressed="true"] { background: var(--tint); color: var(--ink); }
+    .density svg { width: calc(20 * var(--u)); height: calc(20 * var(--u)); }
+
+    /* =========================================================
+       Equipment grid
+       ========================================================= */
+    .grid[data-per-row="4"] { --per-row: 4; } .grid[data-per-row="6"] { --per-row: 6; } .grid[data-per-row="8"] { --per-row: 8; }
+    .grid { display: grid; grid-template-columns: repeat(var(--per-row), minmax(0, 1fr)); gap: calc(var(--gap) + calc(24 * var(--u))) var(--gap); padding: calc(4 * var(--u)) 0 calc(var(--gap) + calc(48 * var(--u))); margin: 0; list-style: none; }
+    .card { position: relative; display: flex; flex-direction: column; border-radius: calc(18 * var(--u)); background: var(--surface); border: calc(1 * var(--u)) solid var(--line); box-shadow: 0 calc(1 * var(--u)) calc(2 * var(--u)) rgba(15,31,33,.04);
+      transition: border-color .35s, box-shadow .35s, transform .5s var(--ease); }
+    .card.is-moving { transition: none; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgba(15,31,33,.04), 0 calc(24 * var(--u)) calc(44 * var(--u)) -24px rgba(15,31,33,.32); }
+    .card.is-picked { border-color: var(--teal); box-shadow: 0 0 0 calc(1 * var(--u)) var(--teal), 0 calc(24 * var(--u)) calc(44 * var(--u)) -26px rgba(31,107,110,.45); }
+    .card__media { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: calc(17 * var(--u)) calc(17 * var(--u)) 0 0; background: var(--tint); }
+    .card__media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); transition: transform 1.1s var(--ease); }
+    .card:hover .card__media img { transform: scale(1.06); }
+    .card__dept { margin: 0 0 calc(6 * var(--u)); font-size: calc(12 * var(--u)); font-weight: 500; color: var(--ink-soft); }
+    .grid.is-filtered .card__dept { display: none; }
+    .card__body { padding: calc(16 * var(--u)) calc(18 * var(--u)) calc(34 * var(--u)); }
+    .card h3 { margin: 0 0 calc(4 * var(--u)); font-size: calc(16 * var(--u)); font-weight: 650; font-stretch: 104%; letter-spacing: -.01em; line-height: 1.25; color: var(--ink); }
+    .card__model { margin: 0; font-size: calc(12.5 * var(--u)); font-weight: 500; color: var(--teal); }
+    .card__spec { margin: calc(6 * var(--u)) 0 0; font-size: calc(12.5 * var(--u)); color: var(--ink-soft); }
+
+    .pick { position: absolute; left: 50%; bottom: 0; z-index: 2; display: grid; place-items: center; width: calc(46 * var(--u)); height: calc(46 * var(--u)); margin: 0; padding: 0; transform: translate(-50%, 50%);
+      border-radius: 50%; border: calc(1 * var(--u)) solid var(--line); cursor: pointer; color: var(--ink); background: var(--surface);
+      box-shadow: 0 calc(8 * var(--u)) calc(20 * var(--u)) -8px rgba(15,31,33,.35); transition: background-color .3s, border-color .3s, color .3s, transform .35s var(--spring), box-shadow .3s; }
+    .pick:hover { border-color: var(--teal); color: var(--teal); transform: translate(-50%, 50%) scale(1.08); }
+    .pick:active { transform: translate(-50%, 50%) scale(.94); }
+    .pick svg { width: calc(20 * var(--u)); height: calc(20 * var(--u)); transition: transform .45s var(--spring), opacity .3s; }
+    .pick .i-check { position: absolute; opacity: 0; transform: scale(.4) rotate(-30deg); }
+    .card.is-picked .pick { background: var(--teal); color: #fff; border-color: var(--teal); box-shadow: 0 0 0 calc(6 * var(--u)) rgba(31,107,110,.14), 0 calc(10 * var(--u)) calc(22 * var(--u)) -8px rgba(31,107,110,.6); }
+    .card.is-picked .pick .i-plus { opacity: 0; transform: rotate(90deg) scale(.4); }
+    .card.is-picked .pick .i-check { opacity: 1; transform: none; }
+
+    .grid[data-per-row="6"] .card__spec, .grid[data-per-row="8"] .card__spec, .grid[data-per-row="8"] .card__dept { display: none; }
+    .grid[data-per-row="8"] .card__body { padding: calc(10 * var(--u)) calc(10 * var(--u)) calc(30 * var(--u)); }
+    .grid[data-per-row="8"] .card h3 { font-size: calc(13.5 * var(--u)); }
+    .grid[data-per-row="8"] .card__model { font-size: calc(11.5 * var(--u)); }
+    .grid[data-per-row="8"] .pick { width: calc(38 * var(--u)); height: calc(38 * var(--u)); }
+    .grid[data-per-row="8"] .pick svg { width: calc(17 * var(--u)); height: calc(17 * var(--u)); }
+    .grid[data-per-row="6"] .card h3 { font-size: calc(14.5 * var(--u)); }
+
+    .card.is-entering { animation: card-in .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 28ms); }
+    @keyframes card-in { from { opacity: 0; transform: translateY(calc(18 * var(--u))) scale(.98); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 1100px) {
+      .grid[data-per-row="4"] { --per-row: 3; } .grid[data-per-row="6"] { --per-row: 4; } .grid[data-per-row="8"] { --per-row: 5; }
+    }
+    @media (max-width: 760px) {
+      .grid[data-per-row="4"] { --per-row: 2; } .grid[data-per-row="6"] { --per-row: 2; } .grid[data-per-row="8"] { --per-row: 3; }
+      .grid { gap: calc(var(--gap) + calc(22 * var(--u))) calc(12 * var(--u)); }
+      .card__body { padding: calc(10 * var(--u)) calc(10 * var(--u)) calc(30 * var(--u)); }
+      .card h3 { font-size: calc(13.5 * var(--u)); }
+      .card__spec { display: none; }
+      .density button[data-per-row="6"] { display: none; }
+      .pick { width: calc(40 * var(--u)); height: calc(40 * var(--u)); }
+    }
+
+    /* =========================================================
+       Selection dock (fixed, bottom centre)
+       ========================================================= */
+    .dock { position: fixed; left: 50%; bottom: calc(22 * var(--u)); z-index: 70; transform: translate(-50%, 160%); transition: transform .6s var(--spring); }
+    .dock.is-on { transform: translate(-50%, 0); }
+    .dock__btn { display: flex; align-items: center; gap: calc(14 * var(--u)); padding: calc(8 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) calc(10 * var(--u)); border: 0; border-radius: calc(999 * var(--u)); cursor: pointer; color: #fff; background: var(--night);
+      box-shadow: 0 calc(24 * var(--u)) calc(48 * var(--u)) -18px rgba(15,31,33,.6), 0 calc(2 * var(--u)) calc(6 * var(--u)) rgba(15,31,33,.2); }
+    .dock__btn:hover .dock__cta { background: #24797c; }
+    .dock__stack { flex: none; display: flex; padding-left: calc(4 * var(--u)); }
+    .dock__stack img { flex: none; width: calc(36 * var(--u)); height: calc(36 * var(--u)); border-radius: 50%; object-fit: cover; border: calc(2 * var(--u)) solid var(--night); margin-left: -12px; }
+    .dock__stack img:first-child { margin-left: 0; }
+    .dock__label { font-size: calc(14.5 * var(--u)); font-weight: 550; white-space: nowrap; }
+    .dock__label b { display: inline-grid; place-items: center; min-width: calc(24 * var(--u)); height: calc(24 * var(--u)); margin-left: calc(6 * var(--u)); padding: 0 calc(7 * var(--u)); border-radius: calc(999 * var(--u)); background: rgba(255,255,255,.14); font-size: calc(13 * var(--u)); font-variant-numeric: tabular-nums; }
+    .dock__cta { display: inline-flex; align-items: center; gap: calc(8 * var(--u)); padding: calc(11 * var(--u)) calc(16 * var(--u)); border-radius: calc(999 * var(--u)); background: var(--teal); color: #fff; font-size: calc(14 * var(--u)); font-weight: 650; transition: background-color .2s; }
+    .dock__cta svg { width: calc(14 * var(--u)); height: calc(14 * var(--u)); }
+    .dock.is-bump .dock__btn { animation: bump .5s var(--spring); }
+    @keyframes bump { 30% { transform: scale(1.08); } 100% { transform: none; } }
+    @media (max-width: 560px) { .dock { bottom: calc(14 * var(--u)); } .dock__label span { display: none; } .dock__btn { gap: calc(10 * var(--u)); } .dock__stack img { width: calc(32 * var(--u)); height: calc(32 * var(--u)); margin-left: -10px; } }
+
+    .hint { position: absolute; left: 50%; bottom: calc(100% + calc(14 * var(--u))); z-index: 5; transform: translate(-50%, calc(6 * var(--u))); padding: calc(9 * var(--u)) calc(14 * var(--u)); border-radius: calc(12 * var(--u)); white-space: nowrap; pointer-events: none;
+      background: var(--night-bg); color: #fff; font-size: calc(13 * var(--u)); font-weight: 550; box-shadow: 0 calc(12 * var(--u)) calc(28 * var(--u)) -10px rgba(8,38,42,.6); opacity: 0; transition: opacity .4s ease, transform .5s var(--spring); }
+    .hint::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -6px; border: calc(6 * var(--u)) solid transparent; border-top-color: var(--night-bg); }
+    .hint.is-on { opacity: 1; transform: translate(-50%, 0); }
+    .pick.is-hinted::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: calc(2 * var(--u)) solid var(--teal); animation: ring 1.6s ease-out infinite; }
+    @keyframes ring { from { transform: scale(.85); opacity: .9; } to { transform: scale(1.35); opacity: 0; } }
+    .flyer { position: fixed; z-index: 80; border-radius: calc(14 * var(--u)); object-fit: cover; pointer-events: none; box-shadow: 0 calc(20 * var(--u)) calc(40 * var(--u)) rgba(15,31,33,.35); }
+
+    /* =========================================================
+       Review panel
+       ========================================================= */
+    .scrim { position: fixed; inset: 0; z-index: 90; background: rgba(15,31,33,.32); backdrop-filter: blur(calc(3 * var(--u))); -webkit-backdrop-filter: blur(calc(3 * var(--u))); opacity: 0; transition: opacity .4s ease; }
+    .panel { position: fixed; z-index: 91; top: calc(12 * var(--u)); right: calc(12 * var(--u)); bottom: calc(12 * var(--u)); width: min(calc(440 * var(--u)), calc(100vw - calc(24 * var(--u)))); display: flex; flex-direction: column; border-radius: calc(22 * var(--u)); overflow: hidden;
+      background: var(--surface); transform: translateX(calc(100% + calc(24 * var(--u)))); transition: transform .6s var(--ease); box-shadow: -30px 0 calc(80 * var(--u)) -30px rgba(15,31,33,.45); }
+    .review.is-open .scrim { opacity: 1; }
+    .review.is-open .panel { transform: none; }
+    .review[hidden] { display: none; }
+    .panel__head { display: flex; align-items: center; justify-content: space-between; gap: calc(12 * var(--u)); padding: calc(22 * var(--u)) calc(22 * var(--u)) calc(16 * var(--u)); border-bottom: calc(1 * var(--u)) solid var(--line); }
+    .panel__head h2 { margin: 0; font-size: calc(21 * var(--u)); font-weight: 750; font-stretch: 115%; letter-spacing: -.02em; }
+    .panel__head h2 span { color: var(--ink-soft); font-weight: 500; font-stretch: 100%; font-size: calc(16 * var(--u)); margin-left: calc(6 * var(--u)); }
+    .icon-btn { display: grid; place-items: center; width: calc(38 * var(--u)); height: calc(38 * var(--u)); border-radius: 50%; border: calc(1 * var(--u)) solid var(--line); background: transparent; cursor: pointer; color: var(--ink-soft); transition: color .2s, border-color .2s; }
+    .icon-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+    .icon-btn svg { width: calc(16 * var(--u)); height: calc(16 * var(--u)); }
+    .items { flex: 1; overflow-y: auto; margin: 0; padding: calc(8 * var(--u)) calc(14 * var(--u)); list-style: none; }
+    .item { display: grid; grid-template-columns: calc(64 * var(--u)) 1fr auto; gap: calc(14 * var(--u)); align-items: center; padding: calc(12 * var(--u)) calc(8 * var(--u)); border-bottom: calc(1 * var(--u)) solid var(--line); transition: opacity .35s, transform .35s var(--ease); }
+    .item.is-removing { opacity: 0; transform: translateX(calc(30 * var(--u))); }
+    .item img { width: calc(64 * var(--u)); height: calc(64 * var(--u)); border-radius: calc(12 * var(--u)); object-fit: cover; background: var(--tint); }
+    .item h3 { margin: 0 0 calc(2 * var(--u)); font-size: calc(14.5 * var(--u)); font-weight: 600; line-height: 1.25; }
+    .item p { margin: 0 0 calc(8 * var(--u)); font-size: calc(12 * var(--u)); color: var(--teal); }
+    .intent { display: inline-flex; padding: calc(3 * var(--u)); border-radius: calc(999 * var(--u)); background: var(--tint); }
+    .intent button { padding: calc(5 * var(--u)) calc(11 * var(--u)); border: 0; border-radius: calc(999 * var(--u)); background: transparent; font-size: calc(12 * var(--u)); font-weight: 600; color: var(--ink-soft); cursor: pointer; transition: background-color .25s, color .25s; }
+    .intent button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+    .item .icon-btn { width: calc(34 * var(--u)); height: calc(34 * var(--u)); }
+    .empty { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: calc(12 * var(--u)); padding: calc(40 * var(--u)); text-align: center; color: var(--ink-soft); font-size: calc(15 * var(--u)); }
+    .review.is-empty .empty { display: flex; }
+    .review.is-empty .items, .review.is-empty .panel__foot { display: none; }
+    .empty svg { width: calc(40 * var(--u)); height: calc(40 * var(--u)); color: var(--teal); }
+    .panel__foot { padding: calc(16 * var(--u)) calc(22 * var(--u)) calc(22 * var(--u)); border-top: calc(1 * var(--u)) solid var(--line); display: grid; gap: calc(10 * var(--u)); }
+    .panel__foot .btn { width: 100%; padding: calc(16 * var(--u)) calc(18 * var(--u)); font-size: calc(15 * var(--u)); }
+    .text-btn { justify-self: center; border: 0; background: none; color: var(--ink-soft); font-size: calc(13 * var(--u)); cursor: pointer; text-decoration: underline; text-underline-offset: calc(3 * var(--u)); }
+    .text-btn:hover { color: var(--ink); }
+    @media (max-width: 560px) {
+      .panel { top: auto; left: calc(8 * var(--u)); right: calc(8 * var(--u)); bottom: calc(8 * var(--u)); width: auto; max-height: 82vh; transform: translateY(calc(100% + calc(24 * var(--u)))); }
+    }
+
+    /* =========================================================
+       Footer: clean, one band
+       ========================================================= */
+    .foot { margin-top: clamp(calc(40 * var(--u)), 5vw, calc(72 * var(--u))); color: var(--on-dark-soft); background: radial-gradient(50% 80% at 50% 0%, rgba(18,188,214,.08), transparent 70%), var(--night-bg); }
+    .foot__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: calc(24 * var(--u)) calc(48 * var(--u)); padding: clamp(calc(36 * var(--u)), 4vw, calc(56 * var(--u))) 0 clamp(calc(28 * var(--u)), 3vw, calc(40 * var(--u))); }
+    .foot__brand { color: var(--on-dark); display: inline-flex; align-items: center; gap: calc(12 * var(--u)); text-decoration: none; font-size: calc(17 * var(--u)); font-weight: 700; font-stretch: 112%; letter-spacing: -.01em; }
+    .foot__brand svg { width: calc(34 * var(--u)); height: calc(34 * var(--u)); }
+    .foot__brand small { display: block; margin-top: calc(2 * var(--u)); font-size: calc(12.5 * var(--u)); font-weight: 450; font-stretch: 100%; letter-spacing: 0; color: var(--on-dark-soft); }
+    .foot__links { display: flex; flex-wrap: wrap; gap: calc(6 * var(--u)) calc(28 * var(--u)); margin: 0; padding: 0; list-style: none; font-size: calc(14.5 * var(--u)); font-weight: 550; }
+    .foot__links a { text-decoration: none; color: var(--on-dark); background: linear-gradient(var(--cyan), var(--cyan)) 0 100% / 0 calc(1 * var(--u)) no-repeat; padding-bottom: calc(2 * var(--u)); transition: color .2s, background-size .4s var(--ease); }
+    .foot__links a:hover { color: #fff; background-size: 100% calc(1 * var(--u)); }
+    .foot__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: calc(8 * var(--u)) calc(24 * var(--u)); padding: calc(18 * var(--u)) 0 clamp(calc(96 * var(--u)), 8vw, calc(110 * var(--u))); border-top: calc(1 * var(--u)) solid rgba(238,249,250,.12); font-size: calc(13 * var(--u)); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="om-mark" viewBox="0 0 500 500">
+      <path fill="#12bcd6" d="M238,106 C150,86 72,140 52,225 C32,325 110,425 220,432 C290,437 345,418 372,395 C300,412 220,392 186,330 C150,268 160,165 238,106 Z"/>
+      <path fill="#1f6b6e" d="M100,102 C170,45 305,38 390,112 C472,190 462,335 360,390 C295,423 220,402 182,348 C245,378 318,358 344,292 C374,214 338,128 258,104 C208,90 150,92 100,102 Z"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- ===================== Intro (logo animation) ===================== -->
+  <div class="intro" id="intro" hidden aria-hidden="true">
+    <div class="intro__mark">
+      <svg viewBox="0 0 500 500">
+        <g class="p p-cyan"><path fill="#12bcd6" d="M238,106 C150,86 72,140 52,225 C32,325 110,425 220,432 C290,437 345,418 372,395 C300,412 220,392 186,330 C150,268 160,165 238,106 Z"/></g>
+        <g class="p p-teal"><path fill="#1f6b6e" stroke="#08262a" stroke-width="9" paint-order="stroke" d="M100,102 C170,45 305,38 390,112 C472,190 462,335 360,390 C295,423 220,402 182,348 C245,378 318,358 344,292 C374,214 338,128 258,104 C208,90 150,92 100,102 Z"/></g>
+      </svg>
+      <span class="intro__word">Optimus Medical</span>
+      <div class="intro__dest"><span>Opening <b id="introDest">Equipment</b></span><i class="intro__bar"></i></div>
+    </div>
+  </div>
+  <script>
+    /* Decide before first paint whether the intro plays (arriving from the homepage, or ?intro) */
+    (function () {
+      var play = false;
+      try { play = sessionStorage.getItem("om.intro") === "1"; sessionStorage.removeItem("om.intro"); } catch (e) {}
+      if (/[?&]intro\b/.test(location.search)) play = true;
+      if (play && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("has-intro");
+        document.getElementById("intro").hidden = false;
+        /* Name the destination: the department when entered from a homepage tile */
+        var names = { monitoring: "Patient monitoring", imaging: "Diagnostic imaging", surgical: "Surgical equipment", care: "Beds and patient care", lab: "Laboratory", neonatal: "Neonatal care" };
+        var d = (location.search.match(/[?&]d=([a-z]+)/) || [])[1];
+        if (names[d]) document.getElementById("introDest").textContent = names[d];
+        /* Safety net: never leave the visitor on the logo, whatever happens later */
+        setTimeout(function () {
+          var i = document.getElementById("intro");
+          if (i && !i.hidden && !i.classList.contains("is-leaving")) { i.hidden = true; document.documentElement.classList.remove("has-intro"); }
+        }, 3800);
+      }
+    })();
+  </script>
+
+  <div class="page">
+  <main>
+    <!-- ===================== Header ===================== -->
+    <section class="head">
+      <div class="wrap">
+        <a class="back" href="index.html" id="back"><i><svg aria-hidden="true"><use href="#arrow"/></svg></i>Back</a>
+        <div class="head__row">
+          <h1>Equipment</h1>
+          <ul class="head__meta" aria-label="How it works"><li>Prices on request</li><li>Buy or rent</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Toolbar ===================== -->
+    <div class="toolbar">
+      <div class="wrap toolbar__inner">
+        <div class="filters glass" id="filters" role="group" aria-label="Filter by department">
+          <span class="filters__glow" id="filterGlow" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+        <div class="viewbar">
+          <p class="count" id="count" aria-live="polite"></p>
+          <div class="density glass" role="group" aria-label="Items per row">
+            <button type="button" data-per-row="4" aria-label="4 per row" aria-pressed="true">
+              <svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+            </button>
+            <button type="button" data-per-row="6" aria-label="6 per row" aria-pressed="false">
+              <svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="4.4" height="4.4" rx="1"/><rect x="7.8" y="2" width="4.4" height="4.4" rx="1"/><rect x="13.6" y="2" width="4.4" height="4.4" rx="1"/><rect x="2" y="7.8" width="4.4" height="4.4" rx="1"/><rect x="7.8" y="7.8" width="4.4" height="4.4" rx="1"/><rect x="13.6" y="7.8" width="4.4" height="4.4" rx="1"/><rect x="2" y="13.6" width="4.4" height="4.4" rx="1"/><rect x="7.8" y="13.6" width="4.4" height="4.4" rx="1"/><rect x="13.6" y="13.6" width="4.4" height="4.4" rx="1"/></svg>
+            </button>
+            <button type="button" data-per-row="8" aria-label="8 per row" aria-pressed="false">
+              <svg viewBox="0 0 20 20" fill="currentColor"><g><rect x="2" y="2" width="3.2" height="3.2" rx=".8"/><rect x="6.3" y="2" width="3.2" height="3.2" rx=".8"/><rect x="10.6" y="2" width="3.2" height="3.2" rx=".8"/><rect x="14.9" y="2" width="3.2" height="3.2" rx=".8"/></g><g transform="translate(0 4.3)"><rect x="2" y="2" width="3.2" height="3.2" rx=".8"/><rect x="6.3" y="2" width="3.2" height="3.2" rx=".8"/><rect x="10.6" y="2" width="3.2" height="3.2" rx=".8"/><rect x="14.9" y="2" width="3.2" height="3.2" rx=".8"/></g><g transform="translate(0 8.6)"><rect x="2" y="2" width="3.2" height="3.2" rx=".8"/><rect x="6.3" y="2" width="3.2" height="3.2" rx=".8"/><rect x="10.6" y="2" width="3.2" height="3.2" rx=".8"/><rect x="14.9" y="2" width="3.2" height="3.2" rx=".8"/></g><g transform="translate(0 12.9)"><rect x="2" y="2" width="3.2" height="3.2" rx=".8"/><rect x="6.3" y="2" width="3.2" height="3.2" rx=".8"/><rect x="10.6" y="2" width="3.2" height="3.2" rx=".8"/><rect x="14.9" y="2" width="3.2" height="3.2" rx=".8"/></g></svg>
+            </button>
+          </div>
+        </div>
+    </div>
+
+    <!-- ===================== Grid ===================== -->
+    <div class="wrap">
+      <ul class="grid" id="grid" data-per-row="4" aria-label="Equipment"></ul>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__top">
+        <a class="foot__brand" href="index.html"><svg aria-hidden="true"><use href="#om-mark"/></svg><span>Optimus Medical<small>Medical equipment, supplied and serviced across Pakistan</small></span></a>
+        <ul class="foot__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="contact.html">Request a quote</a></li>
+          <li><a href="https://wa.me/923258852525" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:info@optimusmedicalpak.com">Email</a></li>
+        </ul>
+      </div>
+      <div class="foot__legal">
+        <span>© <span id="year">2026</span> Optimus Medical. All rights reserved.</span>
+        <span>Islamabad, Pakistan</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <!-- ===================== Selection dock ===================== -->
+  <div class="dock" id="dock">
+    <button type="button" class="dock__btn" id="dockBtn" aria-haspopup="dialog" aria-controls="review">
+      <span class="dock__stack" id="dockStack" aria-hidden="true"></span>
+      <span class="dock__label"><span>Selected</span><b id="dockCount">0</b></span>
+      <span class="dock__cta">Review <svg aria-hidden="true"><use href="#arrow"/></svg></span>
+    </button>
+  </div>
+
+  <!-- ===================== Review panel ===================== -->
+  <div class="review" id="review" hidden>
+    <div class="scrim" data-close></div>
+    <section class="panel" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+      <div class="panel__head">
+        <h2 id="reviewTitle">Your selection<span id="reviewCount"></span></h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+      </div>
+      <ul class="items" id="items"></ul>
+      <div class="empty">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="20" cy="20" r="16"/><path d="M20 13v14M13 20h14"/></svg>
+        Nothing selected yet. Tap + on any equipment to add it.
+      </div>
+      <div class="panel__foot">
+        <a class="btn btn--bright" id="toQuote" href="contact.html">Request a quote <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+        <button type="button" class="text-btn" id="clearAll">Clear selection</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /* Equipment catalogue (placeholder data). The same list is in inventory.html and
+       contact.html; keep them in sync until the CMS replaces both. */
+    /* =========================================================
+       DATA
+       Placeholder equipment. Each object has the shape the CMS will
+       store later (see AMENDMENTS.md, "Data model"):
+         id, name, model, department, image, spec
+       Replace this array with a fetch from the CMS when it exists.
+       ========================================================= */
+    var IMG = function (id) { return "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&w=640&h=640&q=70"; };
+    var DEPARTMENTS = [
+      { id: "monitoring", name: "Patient monitoring" },
+      { id: "imaging",    name: "Diagnostic imaging" },
+      { id: "surgical",   name: "Surgical" },
+      { id: "care",       name: "Beds and patient care" },
+      { id: "lab",        name: "Laboratory" },
+      { id: "neonatal",   name: "Neonatal" }
+    ];
+    var EQUIPMENT = [
+      { id: "pm-01", name: "Multi-parameter patient monitor", model: "Model PM-12", department: "monitoring", image: IMG("1513224502586-d1e602410265"), spec: "12.1 in display, 6 parameters" },
+      { id: "pm-02", name: "Bedside vital signs monitor",     model: "Model VS-8",  department: "monitoring", image: IMG("1664902265139-934219cee42f"), spec: "NIBP, SpO2, temperature" },
+      { id: "pm-03", name: "12-lead ECG machine",             model: "Model ECG-1200", department: "monitoring", image: IMG("1630531210843-d6f343ad1f90"), spec: "Interpretive, thermal printer" },
+      { id: "pm-04", name: "Central monitoring station",      model: "Model CMS-32", department: "monitoring", image: IMG("1666214280250-41f16ba24a26"), spec: "Up to 32 beds" },
+      { id: "pm-05", name: "Pulse oximeter",                  model: "Model OX-2",  department: "monitoring", image: IMG("1603398938378-e54eab446dde"), spec: "Handheld, rechargeable" },
+
+      { id: "im-01", name: "Colour Doppler ultrasound",       model: "Model US-70",  department: "imaging", image: IMG("1691935071222-c008a4ccc2ca"), spec: "4 probe ports, cart based" },
+      { id: "im-02", name: "Portable ultrasound",             model: "Model US-P5",  department: "imaging", image: IMG("1691933880096-4046bc9e2fa0"), spec: "Laptop format, 2 probes" },
+      { id: "im-03", name: "Ultrasound workstation",          model: "Model US-W3",  department: "imaging", image: IMG("1691933880037-ce9d151ab922"), spec: "Obstetric and cardiac presets" },
+      { id: "im-04", name: "Mobile X-ray unit",               model: "Model XR-M4",  department: "imaging", image: IMG("1691933880082-8ca234497bf4"), spec: "Digital, battery driven" },
+
+      { id: "sx-01", name: "LED surgical light",              model: "Model OL-160", department: "surgical", image: IMG("1551076805-e1869033e561"), spec: "Twin head, 160,000 lux" },
+      { id: "sx-02", name: "Electric operating table",        model: "Model OT-E7",  department: "surgical", image: IMG("1516549655169-df83a0774514"), spec: "Remote control, radiolucent top" },
+      { id: "sx-03", name: "Anaesthesia workstation",         model: "Model AW-5",   department: "surgical", image: IMG("1504439468489-c8920d796a29"), spec: "Integrated ventilator" },
+      { id: "sx-04", name: "Electrosurgical unit",            model: "Model ES-300", department: "surgical", image: IMG("1512102438733-bfa4ed29aef7"), spec: "Mono and bipolar, 300 W" },
+
+      { id: "pc-01", name: "Five-function ICU bed",          model: "Model ICU-5",  department: "care", image: IMG("1538108149393-fbbd81895907"), spec: "Electric, CPR release" },
+      { id: "pc-02", name: "Manual ward bed",                model: "Model WB-3",   department: "care", image: IMG("1611587266737-cc128ffe2946"), spec: "Three crank, side rails" },
+      { id: "pc-03", name: "Infusion pump",                   model: "Model IP-1",   department: "care", image: IMG("1710074213379-2a9c2653046a"), spec: "Volumetric, drug library" },
+      { id: "pc-04", name: "Patient room package",            model: "Model PR-2",   department: "care", image: IMG("1710074213374-e68503a1b795"), spec: "Bed, locker, overbed table" },
+
+      { id: "lb-01", name: "Haematology analyser",            model: "Model HA-5",   department: "lab", image: IMG("1579165466949-3180a3d056d5"), spec: "5-part differential" },
+      { id: "lb-02", name: "Laboratory centrifuge",           model: "Model CF-24",  department: "lab", image: IMG("1578496480240-32d3e0c04525"), spec: "24 tubes, digital timer" },
+      { id: "lb-03", name: "Chemistry analyser",              model: "Model CA-200", department: "lab", image: IMG("1581093577421-f561a654a353"), spec: "200 tests per hour" },
+      { id: "lb-04", name: "Biosafety cabinet",               model: "Model BSC-2",  department: "lab", image: IMG("1582719299076-dd3f6f970dd4"), spec: "Class II, HEPA filtered" },
+
+      { id: "nn-01", name: "Infant incubator",                model: "Model IN-30",  department: "neonatal", image: IMG("1517120026326-d87759a7b63b"), spec: "Servo controlled" },
+      { id: "nn-02", name: "Infant radiant warmer",           model: "Model RW-2",   department: "neonatal", image: IMG("1576091160550-2173dba999ef"), spec: "Apgar timer, tilting bed" },
+      { id: "nn-03", name: "Phototherapy unit",               model: "Model PT-4",   department: "neonatal", image: IMG("1505751172876-fa1923c5c528"), spec: "LED, adjustable height" }
+    ];
+
+  </script>
+
+  <script>
+    (function () {
+      "use strict";
+      var doc = document, win = window;
+      var reduce = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var $ = function (id) { return doc.getElementById(id); };
+      var byId = {}; EQUIPMENT.forEach(function (e) { byId[e.id] = e; });
+      var deptName = {}; DEPARTMENTS.forEach(function (d) { deptName[d.id] = d.name; });
+
+      /* ---------- Saved state (selection survives reloads and carries to the quote page) ---------- */
+      var KEY = "om.selection.v1", VIEW_KEY = "om.perRow";
+      function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(selection)); } catch (e) {} }
+      var selection = load().filter(function (s) { return byId[s.id]; });     // [{ id, intent: "buy" | "rent" }]
+      function isPicked(id) { return selection.some(function (s) { return s.id === id; }); }
+
+      /* ---------- Filters ---------- */
+      var filters = $("filters"), glow = $("filterGlow");
+      var params = new URLSearchParams(location.search);
+      var current = params.get("d");
+      if (current !== "all" && !deptName[current]) current = "all";
+      [{ id: "all", name: "All" }].concat(DEPARTMENTS).forEach(function (d) {
+        var n = d.id === "all" ? EQUIPMENT.length : EQUIPMENT.filter(function (e) { return e.department === d.id; }).length;
+        var b = doc.createElement("button");
+        b.type = "button"; b.className = "filter"; b.dataset.dept = d.id;
+        b.setAttribute("aria-pressed", String(d.id === current));
+        b.innerHTML = d.name + " <small>" + n + "</small>";
+        filters.appendChild(b);
+      });
+      function moveGlow(instant) {
+        var active = filters.querySelector('[aria-pressed="true"]');
+        if (!active) return;
+        if (instant) glow.style.transition = "none";
+        glow.style.width = active.offsetWidth + "px";
+        glow.style.transform = "translateX(" + active.offsetLeft + "px)";
+        if (instant) { glow.offsetWidth; glow.style.transition = ""; }
+        var fl = filters.scrollLeft, fw = filters.clientWidth;
+        if (active.offsetLeft < fl || active.offsetLeft + active.offsetWidth > fl + fw) {
+          filters.scrollTo({ left: active.offsetLeft - fw / 2 + active.offsetWidth / 2, behavior: reduce ? "auto" : "smooth" });
+        }
+      }
+      filters.addEventListener("click", function (e) {
+        var b = e.target.closest(".filter");
+        if (!b || b.dataset.dept === current) return;
+        current = b.dataset.dept;
+        filters.querySelectorAll(".filter").forEach(function (f) { f.setAttribute("aria-pressed", String(f === b)); });
+        moveGlow();
+        var url = new URL(location.href);
+        if (current === "all") url.searchParams.delete("d"); else url.searchParams.set("d", current);
+        history.replaceState(null, "", url);
+        render(true);
+        var top = $("grid").getBoundingClientRect().top + win.scrollY - 190;
+        if (win.scrollY > top) win.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
+      });
+
+      /* ---------- Grid density: 4 / 6 / 8 per row ---------- */
+      var grid = $("grid");
+      var perRow = "4";
+      try { perRow = localStorage.getItem(VIEW_KEY) || "4"; } catch (e) {}
+      if (["4", "6", "8"].indexOf(perRow) < 0) perRow = "4";
+      function setDensity(n, animate) {
+        perRow = n;
+        doc.querySelectorAll(".density button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.perRow === n)); });
+        if (!animate || reduce) { grid.dataset.perRow = n; }
+        else {
+          // FLIP: measure, change the layout, then animate each card from its old box to its new one
+          var cards = Array.prototype.slice.call(grid.children);
+          var before = cards.map(function (c) { return c.getBoundingClientRect(); });
+          grid.dataset.perRow = n;
+          cards.forEach(function (c, i) {
+            var a = before[i], b = c.getBoundingClientRect();
+            if (!b.width || (a.top > innerHeight + 200 && b.top > innerHeight + 200)) return;   // off screen: skip
+            var sx = a.width / b.width, sy = a.height / b.height;
+            c.classList.add("is-moving");
+            var anim = c.animate([
+              { transformOrigin: "0 0", transform: "translate(" + (a.left - b.left) + "px," + (a.top - b.top) + "px) scale(" + sx + "," + sy + ")" },
+              { transformOrigin: "0 0", transform: "none" }
+            ], { duration: 560, easing: "cubic-bezier(.2,.75,.2,1)" });
+            var end = function () { c.classList.remove("is-moving"); };
+            anim.onfinish = end; setTimeout(end, 700);
+          });
+        }
+        try { localStorage.setItem(VIEW_KEY, n); } catch (e) {}
+      }
+      doc.querySelector(".density").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-per-row]");
+        if (b && b.dataset.perRow !== perRow) setDensity(b.dataset.perRow, true);
+      });
+
+      /* ---------- Cards ---------- */
+      var PLUS = '<svg class="i-plus" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg>';
+      var CHECK = '<svg class="i-check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
+      function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+      function cardHTML(e, i) {
+        var picked = isPicked(e.id);
+        return '<li class="card is-entering' + (picked ? " is-picked" : "") + '" data-id="' + e.id + '" style="--i:' + i + '">' +
+          '<div class="card__media">' +
+          '<img src="' + e.image + '" alt="' + esc(e.name) + '" loading="lazy" decoding="async" width="640" height="640" /></div>' +
+          '<div class="card__body"><p class="card__dept">' + esc(deptName[e.department]) + '</p><h3>' + esc(e.name) + '</h3><p class="card__model">' + esc(e.model) + '</p><p class="card__spec">' + esc(e.spec) + '</p></div>' +
+          '<button type="button" class="pick" aria-pressed="' + picked + '" aria-label="' + (picked ? "Remove " : "Add ") + esc(e.name) + (picked ? " from" : " to") + ' your selection">' + PLUS + CHECK + '</button>' +
+          '</li>';
+      }
+      function render(animate) {
+        var list = EQUIPMENT.filter(function (e) { return current === "all" || e.department === current; });
+        grid.innerHTML = list.map(cardHTML).join("");
+        grid.classList.toggle("is-filtered", current !== "all");
+        $("count").innerHTML = "<b>" + list.length + "</b> " + (list.length === 1 ? "item" : "items") + (current === "all" ? "" : " in " + esc(deptName[current]));
+      }
+
+      grid.addEventListener("click", function (e) {
+        var btn = e.target.closest(".pick");
+        if (!btn) return;
+        var card = btn.closest(".card"), id = card.dataset.id, item = byId[id];
+        if (isPicked(id)) {
+          selection = selection.filter(function (s) { return s.id !== id; });
+          setCardState(id, false);
+          save(); updateDock(false);
+        } else {
+          selection.push({ id: id, intent: "buy" });
+          setCardState(id, true);
+          save();
+          updateDock(false);
+          fly(card.querySelector(".card__media img"), function () { bumpDock(); });
+        }
+      });
+      function setCardState(id, on) {
+        var card = grid.querySelector('.card[data-id="' + id + '"]');
+        if (!card) return;
+        card.classList.toggle("is-picked", on);
+        var btn = card.querySelector(".pick"), name = byId[id].name;
+        btn.setAttribute("aria-pressed", String(on));
+        btn.setAttribute("aria-label", (on ? "Remove " : "Add ") + name + (on ? " from" : " to") + " your selection");
+      }
+
+      /* ---------- Fly the photo into the dock ---------- */
+      var dock = $("dock"), dockBtn = $("dockBtn");
+      function fly(img, done) {
+        if (reduce || !img || !img.animate) { done(); return; }
+        var r0 = img.getBoundingClientRect();
+        if (r0.bottom < 0 || r0.top > innerHeight) { done(); return; }
+        var from = img.getBoundingClientRect();
+        if (!dock.classList.contains("is-on")) { dock.classList.add("is-on"); }
+        // The dock may still be sliding in: aim for where it will come to rest
+        var to = dockBtn.getBoundingClientRect();
+        var m = new DOMMatrix(getComputedStyle(dock).transform);
+        to = { left: to.left, top: to.top - m.m42, height: to.height };
+        var clone = img.cloneNode();
+        clone.className = "flyer"; clone.removeAttribute("loading");
+        var size = Math.min(from.width, 220), h = size * (from.height / from.width);
+        Object.assign(clone.style, { left: (from.left + (from.width - size) / 2) + "px", top: (from.top + (from.height - h) / 2) + "px", width: size + "px", height: h + "px" });
+        doc.body.appendChild(clone);
+        var tx = to.left + 28 - (from.left + from.width / 2), ty = to.top + to.height / 2 - (from.top + from.height / 2);
+        var anim = clone.animate([
+          { transform: "translate(0,0) scale(1)", opacity: 1, borderRadius: "14px", offset: 0 },
+          { transform: "translate(" + tx * 0.35 + "px," + (ty * 0.2 - 90) + "px) scale(.62) rotate(-6deg)", opacity: 1, borderRadius: "22px", offset: 0.4 },
+          { transform: "translate(" + tx + "px," + ty + "px) scale(" + (36 / size) + ")", opacity: .9, borderRadius: "50%", offset: 1 }
+        ], { duration: 820, easing: "cubic-bezier(.5,0,.3,1)" });
+        var finished = false;
+        var finish = function () { if (finished) return; finished = true; clone.remove(); done(); };
+        anim.onfinish = finish;
+        setTimeout(finish, 900);   // backup in case the browser never reports the end
+      }
+
+      /* ---------- Dock ---------- */
+      function updateDock(bump) {
+        var n = selection.length;
+        $("dockCount").textContent = n;
+        dockBtn.setAttribute("aria-label", "Review your selection, " + n + (n === 1 ? " item" : " items"));
+        $("dockStack").innerHTML = selection.slice(-3).reverse().map(function (s) { return '<img src="' + byId[s.id].image + '" alt="" />'; }).join("");
+        dock.classList.toggle("is-on", n > 0);
+        if (bump) bumpDock();
+      }
+      function bumpDock() { dock.classList.remove("is-bump"); void dock.offsetWidth; dock.classList.add("is-bump"); }
+
+      /* ---------- Review panel ---------- */
+      var review = $("review"), items = $("items"), lastFocus = null;
+      function itemHTML(s) {
+        var e = byId[s.id];
+        return '<li class="item" data-id="' + e.id + '"><img src="' + e.image + '" alt="" />' +
+          '<div><h3>' + esc(e.name) + '</h3><p>' + esc(e.model) + '</p>' +
+          '<div class="intent" role="group" aria-label="Buy or rent ' + esc(e.name) + '">' +
+          '<button type="button" data-intent="buy" aria-pressed="' + (s.intent === "buy") + '">Buy</button>' +
+          '<button type="button" data-intent="rent" aria-pressed="' + (s.intent === "rent") + '">Rent</button></div></div>' +
+          '<button type="button" class="icon-btn" data-remove aria-label="Remove ' + esc(e.name) + '"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 8h9"/></svg></button></li>';
+      }
+      function paintReview() {
+        items.innerHTML = selection.map(itemHTML).join("");
+        $("reviewCount").textContent = selection.length ? "(" + selection.length + ")" : "";
+        review.classList.toggle("is-empty", selection.length === 0);
+        // The current contact page reads ?products= as a comma-separated list
+        var q = selection.map(function (s) { var e = byId[s.id]; return (e.name + " | " + e.model + " | " + (s.intent === "rent" ? "Rent" : "Buy")).replace(/,/g, " "); }).join(",");
+        $("toQuote").href = "contact.html";   // the quote page reads the saved selection
+      }
+      function openReview() {
+        paintReview();
+        lastFocus = doc.activeElement;
+        review.hidden = false;
+        requestAnimationFrame(function () { requestAnimationFrame(function () { review.classList.add("is-open"); }); });
+        doc.body.style.overflow = "hidden";
+        setTimeout(function () { review.querySelector(".panel__head .icon-btn").focus(); }, 50);
+      }
+      function closeReview() {
+        review.classList.remove("is-open");
+        doc.body.style.overflow = "";
+        setTimeout(function () { review.hidden = true; }, reduce ? 0 : 450);
+        if (lastFocus) lastFocus.focus();
+      }
+      dockBtn.addEventListener("click", openReview);
+      doc.querySelectorAll("[data-open-review]").forEach(function (a) { a.addEventListener("click", function (e) { e.preventDefault(); openReview(); }); });
+      review.addEventListener("click", function (e) {
+        if (e.target.closest("[data-close]")) { closeReview(); return; }
+        var li = e.target.closest(".item");
+        if (!li) return;
+        var id = li.dataset.id;
+        var intentBtn = e.target.closest("[data-intent]");
+        if (intentBtn) {
+          selection.forEach(function (s) { if (s.id === id) s.intent = intentBtn.dataset.intent; });
+          li.querySelectorAll("[data-intent]").forEach(function (b) { b.setAttribute("aria-pressed", String(b === intentBtn)); });
+          save(); paintReview();
+          return;
+        }
+        if (e.target.closest("[data-remove]")) {
+          li.classList.add("is-removing");
+          setTimeout(function () {
+            selection = selection.filter(function (s) { return s.id !== id; });
+            save(); setCardState(id, false); updateDock(false); paintReview();
+          }, reduce ? 0 : 300);
+        }
+      });
+      $("clearAll").addEventListener("click", function () {
+        selection.forEach(function (s) { setCardState(s.id, false); });
+        selection = []; save(); updateDock(false); paintReview();
+      });
+      doc.addEventListener("keydown", function (e) {
+        if (review.hidden) return;
+        if (e.key === "Escape") closeReview();
+        if (e.key === "Tab") {           // keep focus inside the panel
+          var f = review.querySelectorAll(".panel button, .panel a[href]");
+          if (!f.length) return;
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && doc.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && doc.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      /* ---------- Leaving for another page: fade out ---------- */
+      doc.addEventListener("click", function (e) {
+        var a = e.target.closest("a[href]");
+        if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank") return;
+        var href = a.getAttribute("href");
+        if (href.charAt(0) === "#" || /^(mailto:|tel:|https?:)/i.test(href) || reduce) return;
+        e.preventDefault();
+        doc.body.classList.add("is-leaving");
+        setTimeout(function () { win.location.href = a.href; }, 300);
+      });
+      win.addEventListener("pageshow", function () { doc.body.classList.remove("is-leaving"); });
+
+      /* ---------- Intro: play the logo, then reveal the page ---------- */
+      var intro = $("intro");
+      if (!intro.hidden) {
+        setTimeout(function () {
+          intro.classList.add("is-leaving");
+          doc.documentElement.classList.remove("has-intro");
+          setTimeout(function () { intro.hidden = true; }, 800);
+        }, 1900);
+      }
+
+      /* ---------- Back: return to where the visitor was, or to the homepage ---------- */
+      $("back").addEventListener("click", function (e) {
+        var ref = doc.referrer;
+        if (ref && ref.indexOf(location.origin === "null" ? "file:" : location.origin) === 0 && history.length > 1) {
+          e.preventDefault(); e.stopPropagation(); history.back();
+        }
+      }, true);
+
+      /* ---------- First visit: point at the first + button, once ---------- */
+      var HINT_KEY = "om.hintSeen";
+      function showHint() {
+        try { if (localStorage.getItem(HINT_KEY) || selection.length) return; } catch (e) { return; }
+        var btn = grid.querySelector(".card .pick");
+        if (!btn) return;
+        var tip = doc.createElement("span");
+        tip.className = "hint"; tip.setAttribute("role", "status");
+        tip.textContent = "Tap + to add it to your quote";
+        btn.appendChild(tip); btn.classList.add("is-hinted");
+        requestAnimationFrame(function () { tip.classList.add("is-on"); });
+        var done = function () {
+          tip.classList.remove("is-on"); btn.classList.remove("is-hinted");
+          setTimeout(function () { tip.remove(); }, 400);
+          try { localStorage.setItem(HINT_KEY, "1"); } catch (e) {}
+          grid.removeEventListener("click", done, true);
+        };
+        grid.addEventListener("click", done, true);
+        setTimeout(done, 7000);
+      }
+      setTimeout(showHint, intro.hidden ? 900 : 2300);
+
+      /* ---------- Start ---------- */
+      setDensity(perRow, false);
+      render(false);
+      updateDock(false);
+      moveGlow(true);
+      win.addEventListener("resize", function () { moveGlow(true); });
+      if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(function () { moveGlow(true); });
+      $("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>

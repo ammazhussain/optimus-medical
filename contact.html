@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a quote | Optimus Medical</title>
+  <meta name="description" content="Request a quote from Optimus Medical for medical equipment, for purchase or rental, anywhere in Pakistan." />
+  <meta name="theme-color" content="#08262a" />
+  <link rel="icon" href="assets/logo/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Same tokens as inventory.html. px values scale above calc(1920 * var(--u)) via --u. */
+    :root {
+      --u: clamp(1px, calc(100vw / 1920), 2px);
+      --bg: #e9efef;
+      --night-bg: #08262a;
+      --on-dark: #eef9fa;
+      --on-dark-soft: #93b6b8;
+      --surface: #f8fbfb;
+      --tint: #dfe8e8;
+      --ink: #0f1f21;
+      --ink-2: #3a4a4c;
+      --ink-soft: #66777a;
+      --line: #d3dfdf;
+      --teal: #1f6b6e;
+      --teal-ink: #164f52;
+      --cyan: #12bcd6;
+      --error: #b42318;
+      --wrap: calc(1360 * var(--u));
+      --gutter: clamp(calc(20 * var(--u)), 7vw, calc(160 * var(--u)));
+      --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --ease: cubic-bezier(.2,.75,.2,1);
+      --spring: cubic-bezier(.34,1.56,.64,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: calc(16 * var(--u)); -webkit-text-size-adjust: 100%; background: var(--bg); }
+    body { margin: 0; min-height: 100vh; font-family: var(--font); font-size: calc(16 * var(--u)); line-height: 1.5; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; animation: page-in .6s var(--ease) both; }
+    @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+    body.is-leaving { opacity: 0; transition: opacity .35s ease; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: calc(2 * var(--u)) solid var(--teal); outline-offset: calc(3 * var(--u)); border-radius: calc(8 * var(--u)); }
+    .wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+    .sr-only { position: absolute; width: calc(1 * var(--u)); height: calc(1 * var(--u)); padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: calc(10 * var(--u)); white-space: nowrap; padding: calc(14 * var(--u)) calc(22 * var(--u)); border-radius: calc(999 * var(--u)); border: calc(1 * var(--u)) solid transparent; font-weight: 600; font-size: calc(15 * var(--u)); font-stretch: 105%; line-height: 1; text-decoration: none; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s; }
+    .btn svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+    .btn--teal { background: var(--teal); color: #fff; }
+    .btn--teal:hover { background: var(--teal-ink); }
+    .btn--line { border-color: var(--line); color: var(--ink); background: transparent; }
+    .btn--line:hover { border-color: var(--ink-soft); }
+
+    /* ---------- Header band (same as the Equipment page) ---------- */
+    .head { padding: clamp(calc(24 * var(--u)), 3vw, calc(40 * var(--u))) 0 clamp(calc(64 * var(--u)), 6vw, calc(96 * var(--u))); color: var(--on-dark); background: radial-gradient(45% 90% at 85% 0%, rgba(18,188,214,.16), transparent 70%), radial-gradient(40% 80% at 0% 100%, rgba(31,107,110,.45), transparent 70%), var(--night-bg); }
+    .back { display: inline-flex; align-items: center; gap: calc(10 * var(--u)); padding: calc(9 * var(--u)) calc(16 * var(--u)) calc(9 * var(--u)) calc(10 * var(--u)); border-radius: calc(999 * var(--u)); font-size: calc(14 * var(--u)); font-weight: 550; text-decoration: none; color: var(--on-dark); background: rgba(238,249,250,.06); border: calc(1 * var(--u)) solid rgba(238,249,250,.16); transition: background-color .25s, transform .3s var(--ease); }
+    .back:hover { background: rgba(238,249,250,.12); transform: translateX(-3px); }
+    .back i { display: grid; place-items: center; width: calc(26 * var(--u)); height: calc(26 * var(--u)); border-radius: 50%; background: rgba(238,249,250,.1); color: var(--cyan); }
+    .back svg { width: calc(13 * var(--u)); height: calc(13 * var(--u)); transform: rotate(180deg); }
+    .head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: calc(16 * var(--u)) calc(40 * var(--u)); margin-top: clamp(calc(40 * var(--u)), 6vw, calc(80 * var(--u))); }
+    .head h1 { margin: 0; font-size: clamp(calc(38 * var(--u)), 1rem + 3.8vw, calc(80 * var(--u))); font-weight: 800; font-stretch: 122%; letter-spacing: -.04em; line-height: .92; color: #fff; }
+    .steps { display: flex; gap: calc(8 * var(--u)); margin: 0; padding: 0; list-style: none; counter-reset: s; }
+    .steps li { display: flex; align-items: center; gap: calc(8 * var(--u)); padding: calc(8 * var(--u)) calc(14 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)); border-radius: calc(999 * var(--u)); border: calc(1 * var(--u)) solid rgba(238,249,250,.16); font-size: calc(13.5 * var(--u)); color: var(--on-dark-soft); }
+    .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: calc(22 * var(--u)); height: calc(22 * var(--u)); border-radius: 50%; background: rgba(238,249,250,.1); font-size: calc(11.5 * var(--u)); font-weight: 650; }
+    .steps li.is-done::before { content: ""; background: var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5' fill='none' stroke='%2308262a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/70% no-repeat; }
+    .steps li.is-now { color: var(--on-dark); border-color: rgba(238,249,250,.35); }
+    .steps li.is-now::before { background: var(--on-dark); color: var(--night-bg); }
+
+    /* ---------- Layout: equipment list + form card ---------- */
+    .layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(calc(20 * var(--u)), 2.4vw, calc(36 * var(--u))); align-items: start; margin-top: -40px; padding-bottom: clamp(calc(56 * var(--u)), 6vw, calc(96 * var(--u))); }
+    .panel { border-radius: calc(22 * var(--u)); background: var(--surface); border: calc(1 * var(--u)) solid var(--line); box-shadow: 0 calc(1 * var(--u)) calc(2 * var(--u)) rgba(15,31,33,.04), 0 calc(24 * var(--u)) calc(48 * var(--u)) -32px rgba(15,31,33,.35); }
+    .panel__head { display: flex; align-items: center; justify-content: space-between; gap: calc(12 * var(--u)); padding: calc(22 * var(--u)) calc(24 * var(--u)) calc(18 * var(--u)); border-bottom: calc(1 * var(--u)) solid var(--line); }
+    .panel__head h2 { margin: 0; font-size: calc(19 * var(--u)); font-weight: 700; font-stretch: 112%; letter-spacing: -.015em; }
+    .panel__head h2 span { margin-left: calc(6 * var(--u)); font-weight: 500; font-stretch: 100%; color: var(--ink-soft); font-size: calc(15 * var(--u)); }
+    .link { display: inline-flex; align-items: center; gap: calc(6 * var(--u)); font-size: calc(14 * var(--u)); font-weight: 600; color: var(--teal); text-decoration: none; }
+    .link:hover { text-decoration: underline; text-underline-offset: calc(3 * var(--u)); }
+    .link svg { width: calc(13 * var(--u)); height: calc(13 * var(--u)); }
+
+    .items { margin: 0; padding: calc(6 * var(--u)) calc(12 * var(--u)); list-style: none; }
+    .item { display: grid; grid-template-columns: calc(72 * var(--u)) minmax(0, 1fr) auto; gap: calc(16 * var(--u)); align-items: center; padding: calc(14 * var(--u)) calc(12 * var(--u)); border-bottom: calc(1 * var(--u)) solid var(--line); transition: opacity .35s, transform .35s var(--ease); }
+    .item:last-child { border-bottom: 0; }
+    .item.is-removing { opacity: 0; transform: translateX(calc(30 * var(--u))); }
+    .item img { width: calc(72 * var(--u)); height: calc(72 * var(--u)); border-radius: calc(14 * var(--u)); object-fit: cover; background: var(--tint); }
+    .item h3 { margin: 0 0 calc(2 * var(--u)); font-size: calc(15.5 * var(--u)); font-weight: 650; line-height: 1.25; }
+    .item__model { margin: 0 0 calc(10 * var(--u)); font-size: calc(12.5 * var(--u)); color: var(--teal); }
+    .item__ctrls { display: flex; flex-wrap: wrap; align-items: center; gap: calc(10 * var(--u)); }
+    .seg { display: inline-flex; padding: calc(3 * var(--u)); border-radius: calc(999 * var(--u)); background: var(--tint); }
+    .seg button { padding: calc(6 * var(--u)) calc(12 * var(--u)); border: 0; border-radius: calc(999 * var(--u)); background: transparent; font-size: calc(12.5 * var(--u)); font-weight: 600; color: var(--ink-soft); cursor: pointer; transition: background-color .25s, color .25s; }
+    .seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+    .qty { display: inline-flex; align-items: center; border-radius: calc(999 * var(--u)); background: var(--tint); padding: calc(3 * var(--u)); }
+    .qty button { display: grid; place-items: center; width: calc(26 * var(--u)); height: calc(26 * var(--u)); border: 0; border-radius: 50%; background: transparent; cursor: pointer; color: var(--ink-2); font-size: calc(16 * var(--u)); line-height: 1; }
+    .qty button:hover { background: rgba(15,31,33,.06); }
+    .qty output { min-width: calc(28 * var(--u)); text-align: center; font-size: calc(13 * var(--u)); font-weight: 650; font-variant-numeric: tabular-nums; }
+    .icon-btn { display: grid; place-items: center; width: calc(36 * var(--u)); height: calc(36 * var(--u)); border-radius: 50%; border: calc(1 * var(--u)) solid var(--line); background: transparent; cursor: pointer; color: var(--ink-soft); transition: color .2s, border-color .2s; }
+    .icon-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+    .icon-btn svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+
+    .is-locked .icon-btn, .is-locked .link, .is-locked .qty button, .is-locked .seg button:not([aria-pressed="true"]) { display: none; }
+    .is-locked .seg, .is-locked .qty { pointer-events: none; }
+    .is-locked .qty output { padding: 0 8px; }
+    .is-locked .qty output::before { content: "Qty "; font-weight: 500; color: var(--ink-soft); }
+    .is-locked .panel__head h2::after { content: "Sent"; margin-left: 10px; padding: 3px 9px; border-radius: 999px; background: var(--tint); color: var(--teal); font-size: 12px; font-weight: 650; font-stretch: 100%; vertical-align: middle; }
+    .empty { display: none; padding: calc(40 * var(--u)) calc(28 * var(--u)) calc(44 * var(--u)); text-align: center; }
+    .is-empty .empty { display: block; }
+    .is-empty .items { display: none; }
+    .empty i { display: inline-grid; place-items: center; width: calc(64 * var(--u)); height: calc(64 * var(--u)); margin-bottom: calc(14 * var(--u)); border-radius: 50%; background: var(--tint); color: var(--teal); }
+    .empty i svg { width: calc(28 * var(--u)); height: calc(28 * var(--u)); }
+    .empty h3 { margin: 0 0 calc(6 * var(--u)); font-size: calc(17 * var(--u)); font-weight: 700; }
+    .empty p { margin: 0 auto calc(20 * var(--u)); max-width: 26em; color: var(--ink-soft); font-size: calc(14.5 * var(--u)); }
+
+    .contact-strip { display: flex; flex-wrap: wrap; gap: calc(10 * var(--u)) calc(26 * var(--u)); margin-top: calc(18 * var(--u)); padding: 0 calc(6 * var(--u)); font-size: calc(14 * var(--u)); color: var(--ink-soft); }
+    .contact-strip a { display: inline-flex; align-items: center; gap: calc(8 * var(--u)); text-decoration: none; color: var(--ink-2); }
+    .contact-strip a:hover { color: var(--ink); }
+    .contact-strip svg { width: calc(16 * var(--u)); height: calc(16 * var(--u)); color: var(--teal); }
+
+    /* ---------- Form ---------- */
+    .form-card { position: sticky; top: calc(20 * var(--u)); }
+    form { padding: calc(22 * var(--u)) calc(24 * var(--u)) calc(24 * var(--u)); display: grid; gap: calc(18 * var(--u)); }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: calc(14 * var(--u)); }
+    .field { display: grid; align-content: start; gap: calc(7 * var(--u)); }
+    .field label, .field legend { font-size: calc(13.5 * var(--u)); font-weight: 600; color: var(--ink-2); padding: 0; }
+    .field label small, .field legend small { font-weight: 450; color: var(--ink-soft); margin-left: calc(4 * var(--u)); }
+    .field input, .field textarea { width: 100%; padding: calc(13 * var(--u)) calc(14 * var(--u)); border-radius: calc(12 * var(--u)); border: calc(1 * var(--u)) solid var(--line); background: #fff; font-size: calc(15 * var(--u)); transition: border-color .2s, box-shadow .2s; }
+    .field textarea { min-height: calc(112 * var(--u)); resize: vertical; line-height: 1.5; }
+    .field input::placeholder, .field textarea::placeholder { color: #9aa8aa; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 calc(4 * var(--u)) rgba(31,107,110,.12); }
+    .field.has-error input { border-color: var(--error); box-shadow: 0 0 0 calc(4 * var(--u)) rgba(180,35,24,.08); }
+    .err { display: none; font-size: calc(12.5 * var(--u)); color: var(--error); }
+    .field.has-error .err { display: block; }
+    fieldset.field { margin: 0; border: 0; padding: 0; }
+    .choice { display: grid; grid-template-columns: 1fr 1fr; gap: calc(10 * var(--u)); }
+    .choice label { position: relative; display: flex; align-items: center; gap: calc(10 * var(--u)); padding: calc(13 * var(--u)) calc(14 * var(--u)); border-radius: calc(12 * var(--u)); border: calc(1 * var(--u)) solid var(--line); background: #fff; cursor: pointer; font-size: calc(14.5 * var(--u)); font-weight: 550; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice i { flex: none; width: calc(18 * var(--u)); height: calc(18 * var(--u)); border-radius: 50%; border: calc(1.5 * var(--u)) solid #a9b7b9; transition: border-color .2s, box-shadow .2s; }
+    .choice input:checked + i { border-color: var(--teal); box-shadow: inset 0 0 0 calc(4 * var(--u)) #fff, inset 0 0 0 calc(10 * var(--u)) var(--teal); }
+    .choice label:has(input:checked) { border-color: var(--teal); box-shadow: 0 0 0 calc(1 * var(--u)) var(--teal); }
+    .choice input:focus-visible + i { outline: calc(2 * var(--u)) solid var(--teal); outline-offset: calc(3 * var(--u)); }
+    .reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease), opacity .3s; opacity: 0; }
+    .reveal > div { overflow: hidden; }
+    .reveal.is-open { grid-template-rows: 1fr; opacity: 1; }
+    .submit { width: 100%; padding: calc(17 * var(--u)) calc(20 * var(--u)); font-size: calc(15.5 * var(--u)); }
+    .submit[disabled] { opacity: .6; cursor: progress; }
+    .hp { position: absolute; left: -9999px; width: calc(1 * var(--u)); height: calc(1 * var(--u)); overflow: hidden; }
+    .spinner { display: none; width: calc(16 * var(--u)); height: calc(16 * var(--u)); border-radius: 50%; border: calc(2 * var(--u)) solid rgba(255,255,255,.35); border-top-color: #fff; animation: spin .8s linear infinite; }
+    .submit.is-busy svg { display: none; }
+    .submit.is-busy .spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-msg { padding: calc(12 * var(--u)) calc(14 * var(--u)); border-radius: calc(12 * var(--u)); font-size: calc(14 * var(--u)); line-height: 1.45; background: #fdf0ee; color: #8a1c12; border: calc(1 * var(--u)) solid #f3cdc8; }
+    .form-msg a { color: inherit; font-weight: 650; }
+    .fine { margin: -4px 0 0; text-align: center; font-size: calc(12.5 * var(--u)); color: var(--ink-soft); }
+
+    /* ---------- Confirmation ---------- */
+    .done { display: none; padding: calc(40 * var(--u)) calc(28 * var(--u)) calc(36 * var(--u)); text-align: center; }
+    .is-sent form, .is-sent .panel__head { display: none; }
+    .is-sent .done { display: block; animation: rise .6s var(--ease) both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(calc(14 * var(--u))); } to { opacity: 1; transform: none; } }
+    .tick { width: calc(72 * var(--u)); height: calc(72 * var(--u)); margin: 0 auto calc(18 * var(--u)); }
+    .tick circle { fill: none; stroke: var(--teal); stroke-width: 2.5; stroke-dasharray: 220; stroke-dashoffset: 220; animation: draw .7s var(--ease) .1s forwards; }
+    .tick path { fill: none; stroke: var(--teal); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw .45s var(--ease) .6s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .done h2 { margin: 0 0 calc(8 * var(--u)); font-size: calc(24 * var(--u)); font-weight: 750; font-stretch: 115%; letter-spacing: -.02em; }
+    .done p { margin: 0 auto calc(6 * var(--u)); max-width: 26em; color: var(--ink-soft); font-size: calc(15 * var(--u)); }
+    .ref { display: inline-block; margin: calc(14 * var(--u)) 0 calc(24 * var(--u)); padding: calc(8 * var(--u)) calc(14 * var(--u)); border-radius: calc(10 * var(--u)); background: var(--tint); font-size: calc(14 * var(--u)); font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+    .done__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(10 * var(--u)); }
+
+    /* ---------- Footer (same as the Equipment page) ---------- */
+    .foot { color: var(--on-dark-soft); background: radial-gradient(50% 80% at 50% 0%, rgba(18,188,214,.08), transparent 70%), var(--night-bg); }
+    .foot__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: calc(24 * var(--u)) calc(48 * var(--u)); padding: clamp(calc(36 * var(--u)), 4vw, calc(56 * var(--u))) 0 clamp(calc(28 * var(--u)), 3vw, calc(40 * var(--u))); }
+    .foot__brand { display: inline-flex; align-items: center; gap: calc(12 * var(--u)); text-decoration: none; font-size: calc(17 * var(--u)); font-weight: 700; font-stretch: 112%; letter-spacing: -.01em; color: var(--on-dark); }
+    .foot__brand svg { width: calc(34 * var(--u)); height: calc(34 * var(--u)); }
+    .foot__brand small { display: block; margin-top: calc(2 * var(--u)); font-size: calc(12.5 * var(--u)); font-weight: 450; font-stretch: 100%; letter-spacing: 0; color: var(--on-dark-soft); }
+    .foot__links { display: flex; flex-wrap: wrap; gap: calc(6 * var(--u)) calc(28 * var(--u)); margin: 0; padding: 0; list-style: none; font-size: calc(14.5 * var(--u)); font-weight: 550; }
+    .foot__links a { text-decoration: none; color: var(--on-dark); background: linear-gradient(var(--cyan), var(--cyan)) 0 100% / 0 calc(1 * var(--u)) no-repeat; padding-bottom: calc(2 * var(--u)); transition: color .2s, background-size .4s var(--ease); }
+    .foot__links a:hover { color: #fff; background-size: 100% calc(1 * var(--u)); }
+    .foot__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: calc(8 * var(--u)) calc(24 * var(--u)); padding: calc(18 * var(--u)) 0 calc(28 * var(--u)); border-top: calc(1 * var(--u)) solid rgba(238,249,250,.12); font-size: calc(13 * var(--u)); }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .form-card { position: static; }
+      .steps li span { display: none; }
+      .steps li { padding: calc(6 * var(--u)); }
+    }
+    @media (max-width: 560px) {
+      .row2, .choice { grid-template-columns: 1fr; }
+      .item { grid-template-columns: calc(56 * var(--u)) minmax(0, 1fr) auto; gap: calc(12 * var(--u)); padding: calc(12 * var(--u)) calc(6 * var(--u)); }
+      .item img { width: calc(56 * var(--u)); height: calc(56 * var(--u)); }
+      .panel__head, form { padding-left: calc(18 * var(--u)); padding-right: calc(18 * var(--u)); }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .tick circle, .tick path { stroke-dashoffset: 0; } }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="om-mark" viewBox="0 0 500 500">
+      <path fill="#12bcd6" d="M238,106 C150,86 72,140 52,225 C32,325 110,425 220,432 C290,437 345,418 372,395 C300,412 220,392 186,330 C150,268 160,165 238,106 Z"/>
+      <path fill="#1f6b6e" d="M100,102 C170,45 305,38 390,112 C472,190 462,335 360,390 C295,423 220,402 182,348 C245,378 318,358 344,292 C374,214 338,128 258,104 C208,90 150,92 100,102 Z"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <main>
+    <section class="head">
+      <div class="wrap">
+        <a class="back" href="inventory.html" id="back"><i><svg aria-hidden="true"><use href="#arrow"/></svg></i>Back</a>
+        <div class="head__row">
+          <h1>Request a quote</h1>
+          <ol class="steps" aria-label="Progress">
+            <li class="is-done"><span>Select equipment</span></li>
+            <li class="is-now" id="stepDetails" aria-current="step"><span>Your details</span></li>
+            <li id="stepSent"><span>We call you</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap layout" id="layout">
+      <!-- ===================== Selected equipment ===================== -->
+      <section class="list-col">
+        <div class="panel" id="listPanel">
+          <div class="panel__head">
+            <h2>Your equipment<span id="itemCount"></span></h2>
+            <a class="link" href="inventory.html">Add more <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          </div>
+          <ul class="items" id="items"></ul>
+          <div class="empty">
+            <i><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="3"/><path d="M14 10v8M10 14h8"/></svg></i>
+            <h3>No equipment selected</h3>
+            <p>Pick items from our catalogue, or just describe what you need in the message.</p>
+            <a class="btn btn--line" href="inventory.html">Browse equipment <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          </div>
+        </div>
+        <div class="contact-strip">
+          <a href="https://wa.me/923258852525" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 13.5l.8-2.7A5.6 5.6 0 1 1 5.4 13z"/></svg>+92 325 885 2525</a>
+          <a href="mailto:info@optimusmedicalpak.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 4.5l5.5 4 5.5-4"/></svg>info@optimusmedicalpak.com</a>
+        </div>
+      </section>
+
+      <!-- ===================== Details form ===================== -->
+      <section class="panel form-card" id="formCard" aria-labelledby="formTitle">
+        <div class="panel__head"><h2 id="formTitle">Your details</h2></div>
+        <form id="quoteForm" novalidate>
+          <div class="row2">
+            <div class="field" id="f-name">
+              <label for="name">Name</label>
+              <input id="name" name="name" autocomplete="name" required />
+              <span class="err" id="name-err">Please enter your name.</span>
+            </div>
+            <div class="field" id="f-phone">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="03xx xxxxxxx" required aria-describedby="phone-err" />
+              <span class="err" id="phone-err">Enter a Pakistani mobile number, e.g. 0325 8852525.</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email <small>optional</small></label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+          <fieldset class="field">
+            <legend>Ordering as</legend>
+            <div class="choice">
+              <label><input type="radio" name="type" value="company" checked /><i></i>Company or organisation</label>
+              <label><input type="radio" name="type" value="private" /><i></i>Private customer</label>
+            </div>
+          </fieldset>
+          <div class="reveal is-open" id="orgReveal">
+            <div><div class="field" id="f-org">
+              <label for="org">Organisation name</label>
+              <input id="org" name="org" autocomplete="organization" placeholder="Hospital, clinic or lab" />
+              <span class="err">Please enter the organisation name.</span>
+            </div></div>
+          </div>
+          <div class="field">
+            <label for="message" id="messageLabel">Message <small>optional</small></label>
+            <textarea id="message" name="message" placeholder="Quantities, delivery city, timing, anything else"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Website <input name="website" id="website" tabindex="-1" autocomplete="off" /></label></div>
+          <button class="btn btn--teal submit" type="submit" id="submitBtn"><span class="submit__label">Send request</span><svg aria-hidden="true"><use href="#arrow"/></svg><i class="spinner" aria-hidden="true"></i></button>
+          <div class="form-msg" id="formMsg" role="alert" hidden></div>
+          <p class="fine">No payment now. Our team will call you to agree prices.</p>
+        </form>
+
+        <div class="done" id="done" role="status" aria-live="polite">
+          <svg class="tick" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="34"/><path d="M23 37l9 9 17-19"/></svg>
+          <h2 id="doneTitle">Request received</h2>
+          <p id="doneText">Thank you. Our team will call you shortly to discuss prices and delivery.</p>
+          <span class="ref">Reference <span id="ref"></span></span>
+          <div class="done__actions">
+            <a class="btn btn--teal" href="index.html">Back to home</a>
+            <a class="btn btn--line" href="inventory.html">Browse more equipment</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__top">
+        <a class="foot__brand" href="index.html"><svg aria-hidden="true"><use href="#om-mark"/></svg><span>Optimus Medical<small>Medical equipment, supplied and serviced across Pakistan</small></span></a>
+        <ul class="foot__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Equipment</a></li>
+          <li><a href="https://wa.me/923258852525" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:info@optimusmedicalpak.com">Email</a></li>
+        </ul>
+      </div>
+      <div class="foot__legal">
+        <span>© <span id="year">2026</span> Optimus Medical. All rights reserved.</span>
+        <span>Islamabad, Pakistan</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Equipment catalogue (placeholder data). The same list is in inventory.html and
+       contact.html; keep them in sync until the CMS replaces both. */
+    /* =========================================================
+       DATA
+       Placeholder equipment. Each object has the shape the CMS will
+       store later (see AMENDMENTS.md, "Data model"):
+         id, name, model, department, image, spec
+       Replace this array with a fetch from the CMS when it exists.
+       ========================================================= */
+    var IMG = function (id) { return "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&w=640&h=640&q=70"; };
+    var DEPARTMENTS = [
+      { id: "monitoring", name: "Patient monitoring" },
+      { id: "imaging",    name: "Diagnostic imaging" },
+      { id: "surgical",   name: "Surgical" },
+      { id: "care",       name: "Beds and patient care" },
+      { id: "lab",        name: "Laboratory" },
+      { id: "neonatal",   name: "Neonatal" }
+    ];
+    var EQUIPMENT = [
+      { id: "pm-01", name: "Multi-parameter patient monitor", model: "Model PM-12", department: "monitoring", image: IMG("1513224502586-d1e602410265"), spec: "12.1 in display, 6 parameters" },
+      { id: "pm-02", name: "Bedside vital signs monitor",     model: "Model VS-8",  department: "monitoring", image: IMG("1664902265139-934219cee42f"), spec: "NIBP, SpO2, temperature" },
+      { id: "pm-03", name: "12-lead ECG machine",             model: "Model ECG-1200", department: "monitoring", image: IMG("1630531210843-d6f343ad1f90"), spec: "Interpretive, thermal printer" },
+      { id: "pm-04", name: "Central monitoring station",      model: "Model CMS-32", department: "monitoring", image: IMG("1666214280250-41f16ba24a26"), spec: "Up to 32 beds" },
+      { id: "pm-05", name: "Pulse oximeter",                  model: "Model OX-2",  department: "monitoring", image: IMG("1603398938378-e54eab446dde"), spec: "Handheld, rechargeable" },
+
+      { id: "im-01", name: "Colour Doppler ultrasound",       model: "Model US-70",  department: "imaging", image: IMG("1691935071222-c008a4ccc2ca"), spec: "4 probe ports, cart based" },
+      { id: "im-02", name: "Portable ultrasound",             model: "Model US-P5",  department: "imaging", image: IMG("1691933880096-4046bc9e2fa0"), spec: "Laptop format, 2 probes" },
+      { id: "im-03", name: "Ultrasound workstation",          model: "Model US-W3",  department: "imaging", image: IMG("1691933880037-ce9d151ab922"), spec: "Obstetric and cardiac presets" },
+      { id: "im-04", name: "Mobile X-ray unit",               model: "Model XR-M4",  department: "imaging", image: IMG("1691933880082-8ca234497bf4"), spec: "Digital, battery driven" },
+
+      { id: "sx-01", name: "LED surgical light",              model: "Model OL-160", department: "surgical", image: IMG("1551076805-e1869033e561"), spec: "Twin head, 160,000 lux" },
+      { id: "sx-02", name: "Electric operating table",        model: "Model OT-E7",  department: "surgical", image: IMG("1516549655169-df83a0774514"), spec: "Remote control, radiolucent top" },
+      { id: "sx-03", name: "Anaesthesia workstation",         model: "Model AW-5",   department: "surgical", image: IMG("1504439468489-c8920d796a29"), spec: "Integrated ventilator" },
+      { id: "sx-04", name: "Electrosurgical unit",            model: "Model ES-300", department: "surgical", image: IMG("1512102438733-bfa4ed29aef7"), spec: "Mono and bipolar, 300 W" },
+
+      { id: "pc-01", name: "Five-function ICU bed",          model: "Model ICU-5",  department: "care", image: IMG("1538108149393-fbbd81895907"), spec: "Electric, CPR release" },
+      { id: "pc-02", name: "Manual ward bed",                model: "Model WB-3",   department: "care", image: IMG("1611587266737-cc128ffe2946"), spec: "Three crank, side rails" },
+      { id: "pc-03", name: "Infusion pump",                   model: "Model IP-1",   department: "care", image: IMG("1710074213379-2a9c2653046a"), spec: "Volumetric, drug library" },
+      { id: "pc-04", name: "Patient room package",            model: "Model PR-2",   department: "care", image: IMG("1710074213374-e68503a1b795"), spec: "Bed, locker, overbed table" },
+
+      { id: "lb-01", name: "Haematology analyser",            model: "Model HA-5",   department: "lab", image: IMG("1579165466949-3180a3d056d5"), spec: "5-part differential" },
+      { id: "lb-02", name: "Laboratory centrifuge",           model: "Model CF-24",  department: "lab", image: IMG("1578496480240-32d3e0c04525"), spec: "24 tubes, digital timer" },
+      { id: "lb-03", name: "Chemistry analyser",              model: "Model CA-200", department: "lab", image: IMG("1581093577421-f561a654a353"), spec: "200 tests per hour" },
+      { id: "lb-04", name: "Biosafety cabinet",               model: "Model BSC-2",  department: "lab", image: IMG("1582719299076-dd3f6f970dd4"), spec: "Class II, HEPA filtered" },
+
+      { id: "nn-01", name: "Infant incubator",                model: "Model IN-30",  department: "neonatal", image: IMG("1517120026326-d87759a7b63b"), spec: "Servo controlled" },
+      { id: "nn-02", name: "Infant radiant warmer",           model: "Model RW-2",   department: "neonatal", image: IMG("1576091160550-2173dba999ef"), spec: "Apgar timer, tilting bed" },
+      { id: "nn-03", name: "Phototherapy unit",               model: "Model PT-4",   department: "neonatal", image: IMG("1505751172876-fa1923c5c528"), spec: "LED, adjustable height" }
+    ];
+
+  </script>
+  <script>
+    /* =========================================================
+       DELIVERY
+       Paste the Google Apps Script web app URL below (see backend/SETUP.md).
+       - With a URL: the request is saved to the Google Sheet and the team is alerted.
+       - Without one (or if Google can't be reached): falls back to WhatsApp,
+         so the page always works.
+       ========================================================= */
+    var SHEET_URL = "";                       // e.g. "https://script.google.com/macros/s/XXXX/exec"
+    var WHATSAPP_NUMBER = "923258852525";
+    var BROWSER_DAILY_LIMIT = 5;              // soft limit per browser; the real limits are in the script
+
+    function deliver(payload) {
+      if (SHEET_URL) {
+        return fetch(SHEET_URL, {
+          method: "POST",
+          // text/plain avoids a CORS pre-flight, which Apps Script does not answer
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        }).then(function (r) { return r.json(); }, function () { throw { code: "network" }; })
+          .then(function (res) {
+            if (!res || !res.ok) throw { code: (res && res.error) || "network" };
+            return { mode: "sheet", reference: res.reference };
+          });
+      }
+      return Promise.resolve(whatsapp(payload));
+    }
+
+    function whatsappText(payload) {
+      var c = payload.customer;
+      var lines = ["*Quote request " + payload.reference + "*", "", "Name: " + c.name, "Phone: " + c.phone];
+      if (c.email) lines.push("Email: " + c.email);
+      lines.push("Ordering as: " + (c.type === "company" ? "Company / organisation" : "Private customer"));
+      if (c.organisation) lines.push("Organisation: " + c.organisation);
+      if (payload.items.length) {
+        lines.push("", "*Equipment*");
+        payload.items.forEach(function (it, i) { lines.push((i + 1) + ". " + it.name + " (" + it.model + "), " + (it.intent === "rent" ? "Rent" : "Buy") + ", qty " + it.quantity); });
+      }
+      if (payload.message) lines.push("", "*Message*", payload.message);
+      return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(lines.join("\n"));
+    }
+    function whatsapp(payload) {
+      var url = whatsappText(payload);
+      var w = window.open(url, "_blank", "noopener");
+      if (!w) window.location.href = url;
+      return { mode: "whatsapp", reference: payload.reference };
+    }
+  </script>
+  <script>
+    (function () {
+      "use strict";
+      var doc = document, win = window;
+      var reduce = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var $ = function (id) { return doc.getElementById(id); };
+      var byId = {}; EQUIPMENT.forEach(function (e) { byId[e.id] = e; });
+      function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+      /* ---------- Selection (shared with the Equipment page) ---------- */
+      var KEY = "om.selection.v1";
+      function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(selection)); } catch (e) {} }
+      var selection = load().filter(function (s) { return byId[s.id]; }).map(function (s) {
+        return { id: s.id, intent: s.intent === "rent" ? "rent" : "buy", quantity: Math.max(1, Math.min(99, parseInt(s.quantity, 10) || 1)) };
+      });
+
+      var items = $("items"), listPanel = $("listPanel");
+      function itemHTML(s) {
+        var e = byId[s.id];
+        return '<li class="item" data-id="' + e.id + '"><img src="' + e.image + '" alt="" />' +
+          '<div><h3>' + esc(e.name) + '</h3><p class="item__model">' + esc(e.model) + '</p>' +
+          '<div class="item__ctrls">' +
+            '<div class="seg" role="group" aria-label="Buy or rent ' + esc(e.name) + '">' +
+              '<button type="button" data-intent="buy" aria-pressed="' + (s.intent === "buy") + '">Buy</button>' +
+              '<button type="button" data-intent="rent" aria-pressed="' + (s.intent === "rent") + '">Rent</button></div>' +
+            '<div class="qty" role="group" aria-label="Quantity of ' + esc(e.name) + '">' +
+              '<button type="button" data-step="-1" aria-label="Fewer">−</button><output aria-live="polite">' + s.quantity + '</output>' +
+              '<button type="button" data-step="1" aria-label="More">+</button></div>' +
+          '</div></div>' +
+          '<button type="button" class="icon-btn" data-remove aria-label="Remove ' + esc(e.name) + '"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></li>';
+      }
+      function paint() {
+        items.innerHTML = selection.map(itemHTML).join("");
+        $("itemCount").textContent = selection.length ? "(" + selection.length + ")" : "";
+        listPanel.classList.toggle("is-empty", selection.length === 0);
+        /* Flow B: nothing selected, so the message becomes the request itself */
+        var empty = selection.length === 0;
+        $("messageLabel").innerHTML = empty ? "What do you need?" : 'Message <small>optional</small>';
+        $("message").placeholder = empty ? "e.g. 2 ICU beds and a patient monitor for a clinic in Rawalpindi" : "Quantities, delivery city, timing, anything else";
+      }
+      items.addEventListener("click", function (e) {
+        var li = e.target.closest(".item"); if (!li) return;
+        var s = selection.filter(function (x) { return x.id === li.dataset.id; })[0]; if (!s) return;
+        var b;
+        if ((b = e.target.closest("[data-intent]"))) {
+          s.intent = b.dataset.intent;
+          li.querySelectorAll("[data-intent]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          save();
+        } else if ((b = e.target.closest("[data-step]"))) {
+          s.quantity = Math.max(1, Math.min(99, s.quantity + parseInt(b.dataset.step, 10)));
+          li.querySelector("output").textContent = s.quantity;
+          save();
+        } else if (e.target.closest("[data-remove]")) {
+          li.classList.add("is-removing");
+          setTimeout(function () { selection = selection.filter(function (x) { return x !== s; }); save(); paint(); }, reduce ? 0 : 300);
+        }
+      });
+
+      /* ---------- Form ---------- */
+      var form = $("quoteForm");
+      var orgReveal = $("orgReveal");
+      form.addEventListener("change", function (e) {
+        if (e.target.name === "type") {
+          var company = e.target.value === "company";
+          orgReveal.classList.toggle("is-open", company);
+          $("org").tabIndex = company ? 0 : -1;
+          if (!company) $("f-org").classList.remove("has-error");
+        }
+      });
+      function normalisePhone(v) {
+        var d = String(v).replace(/[^\d+]/g, "");
+        if (/^\+92\d{10}$/.test(d)) return d;
+        if (/^92\d{10}$/.test(d)) return "+" + d;
+        if (/^0\d{10}$/.test(d)) return "+92" + d.slice(1);
+        if (/^3\d{9}$/.test(d)) return "+92" + d;
+        return null;
+      }
+      function setError(fieldId, on) { $(fieldId).classList.toggle("has-error", on); var i = $(fieldId).querySelector("input"); if (i) i.setAttribute("aria-invalid", String(on)); }
+      ["name", "phone", "org"].forEach(function (id) { $(id).addEventListener("input", function () { setError("f-" + id, false); }); });
+
+      function reference() {
+        var d = new Date(), r = Math.random().toString(36).slice(2, 6).toUpperCase();
+        return "OM-" + d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0") + "-" + r;
+      }
+
+      var pageOpenedAt = Date.now();
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var name = $("name").value.trim();
+        var phone = normalisePhone($("phone").value);
+        var type = form.querySelector('input[name="type"]:checked').value;
+        var org = $("org").value.trim();
+        var message = $("message").value.trim();
+        var bad = [];
+        if (name.length < 2) { setError("f-name", true); bad.push("name"); }
+        if (!phone) { setError("f-phone", true); bad.push("phone"); }
+        if (type === "company" && !org) { setError("f-org", true); bad.push("org"); }
+        if (!selection.length && !message) {
+          bad.push("message");
+          $("message").focus();
+          $("message").setAttribute("placeholder", "Tell us what you need, or add equipment first");
+        }
+        if (bad.length) { if (bad[0] !== "message") $(bad[0]).focus(); return; }
+
+        var payload = {
+          reference: reference(),
+          createdAt: new Date().toISOString(),
+          status: "new",
+          customer: { name: name, phone: phone, email: $("email").value.trim() || null, type: type, organisation: type === "company" ? org : null },
+          items: selection.map(function (s) { var it = byId[s.id]; return { equipmentId: it.id, name: it.name, model: it.model, intent: s.intent, quantity: s.quantity }; }),
+          message: message || null
+        };
+
+        var btn = $("submitBtn"), msg = $("formMsg");
+        msg.hidden = true;
+
+        /* Soft per-browser daily limit (the real limits are enforced by the Google script) */
+        var today = new Date().toISOString().slice(0, 10), sent = { day: today, n: 0 };
+        try { var st = JSON.parse(localStorage.getItem("om.sent") || "null"); if (st && st.day === today) sent = st; } catch (err) {}
+        if (sent.n >= BROWSER_DAILY_LIMIT) { showMsg("limit"); return; }
+
+        payload.website = $("website").value;                              // honeypot, empty for people
+        payload.elapsed = Math.round((Date.now() - pageOpenedAt) / 1000);  // bots send instantly
+
+        btn.disabled = true; btn.classList.add("is-busy"); btn.querySelector(".submit__label").textContent = "Sending";
+        deliver(payload).then(function (res) {
+          try { sent.n++; localStorage.setItem("om.sent", JSON.stringify(sent)); } catch (err) {}
+          $("ref").textContent = res.reference;
+          if (res.mode === "whatsapp") {
+            $("doneTitle").textContent = "Almost done";
+            $("doneText").textContent = "Your request is ready in WhatsApp. Press send there and our team will call you to discuss prices and delivery.";
+          }
+          $("formCard").classList.add("is-sent");
+          $("stepDetails").classList.remove("is-now"); $("stepDetails").classList.add("is-done"); $("stepDetails").removeAttribute("aria-current");
+          $("stepSent").classList.add("is-now"); $("stepSent").setAttribute("aria-current", "step");
+          listPanel.classList.add("is-locked");
+          selection = []; save();
+          if (win.innerWidth <= 980) $("formCard").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+        }).catch(function (err) {
+          btn.disabled = false; btn.classList.remove("is-busy"); btn.querySelector(".submit__label").textContent = "Send request";
+          showMsg(err && err.code, payload);
+        });
+
+        function showMsg(code, p) {
+          var wa = p ? whatsappText(p) : "https://wa.me/" + WHATSAPP_NUMBER;
+          var text = {
+            limit: "You've already sent several requests today. Our team will be in touch, or <a href='" + wa + "' target='_blank' rel='noopener'>message us on WhatsApp</a>.",
+            invalid: "Some details look incomplete. Please check your name, phone and organisation.",
+            busy: "We're receiving a lot of requests right now. Please try again in a moment."
+          }[code] || "We couldn't send your request. Please check your connection and try again, or <a href='" + wa + "' target='_blank' rel='noopener'>send it on WhatsApp</a> instead.";
+          msg.innerHTML = text; msg.hidden = false;
+        }
+      });
+
+      /* ---------- Back: to where the visitor came from ---------- */
+      $("back").addEventListener("click", function (e) {
+        if (doc.referrer && history.length > 1) { e.preventDefault(); e.stopPropagation(); history.back(); }
+      }, true);
+
+      /* ---------- Leaving for another page: fade out ---------- */
+      doc.addEventListener("click", function (e) {
+        var a = e.target.closest("a[href]");
+        if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank") return;
+        var href = a.getAttribute("href");
+        if (href.charAt(0) === "#" || /^(mailto:|tel:|https?:)/i.test(href) || reduce) return;
+        e.preventDefault();
+        doc.body.classList.add("is-leaving");
+        setTimeout(function () { win.location.href = a.href; }, 300);
+      });
+      win.addEventListener("pageshow", function () { doc.body.classList.remove("is-leaving"); });
+
+      paint();
+      $("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
