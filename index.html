@@ -6,7 +6,7 @@
   <title>Optimus Medical | Medical equipment supplied and serviced across Pakistan</title>
   <meta name="description" content="Optimus Medical supplies diagnostic, patient-care and surgical equipment to hospitals and clinics across Pakistan, then delivers, installs, trains staff and maintains it." />
   <meta property="og:title" content="Optimus Medical" />
-  <meta property="og:description" content="Medical equipment supplied and serviced across Pakistan, from an Islamabad team with 25 years in biomedical supply." />
+  <meta property="og:description" content="Medical equipment supplied and serviced across Pakistan, from a Rawalpindi team with 25 years in biomedical supply." />
   <meta name="theme-color" content="#08262a" />
   <link rel="icon" href="assets/logo/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -307,15 +307,12 @@
     .cycle__panel .photo::after { display: none; }
     .cycle__panel .photo img { transition: transform 1.4s var(--ease); transform: scale(1.08); }
     .cycle__panel.is-active .photo img { transform: none; }
-    .cycle__body { padding: clamp(22px, 2.2vw, 32px); display: flex; flex-direction: column; overflow: hidden; }
+    .cycle__body { padding: clamp(22px, 2.2vw, 32px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
     .cycle__step { font-size: .8rem; font-weight: 600; color: var(--teal); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
     .cycle__step b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--night); color: var(--cyan); font-size: .74rem; font-stretch: 120%; }
     .cycle__body h3 { margin: 0 0 8px; font-size: clamp(1.15rem, 1rem + .45vw, 1.45rem); font-weight: 750; font-stretch: 112%; letter-spacing: -.015em; line-height: 1.15; }
     .cycle__body > p { margin: 0 0 16px; color: var(--ink-soft); font-size: .9rem; line-height: 1.55; }
-    .ticks { display: grid; gap: 8px; margin: 0 0 20px; padding: 16px 0 0; list-style: none; border-top: 1px solid var(--line); }
-    .ticks li { position: relative; padding-left: 26px; font-size: .86rem; line-height: 1.45; }
-    .ticks li::before { content: ""; position: absolute; left: 0; top: .15em; width: 17px; height: 17px; border-radius: 50%; background: #d4f3f8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5' fill='none' stroke='%231f6b6e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
-    .cycle__body .btn { margin-top: auto; align-self: flex-start; padding: 12px 20px; font-size: .9rem; }
+    .cycle__body .btn { margin-top: 12px; align-self: flex-start; padding: 12px 20px; font-size: .9rem; }
 
     @media (min-width: 981px) {
       .cycle-track.is-pinned { height: calc(100vh + 200vh); }
@@ -492,6 +489,7 @@
       [data-open] { --o: 1 !important; }
     }
   </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalBusiness","name":"Optimus Medical","description":"Biomedical equipment supply, installation, training and maintenance for hospitals, clinics and labs across Pakistan.","telephone":"+92 325 8852525","email":"info@optimusmedicalpak.com","address":{"@type":"PostalAddress","streetAddress":"Sector 2, Khayaban-e-Sir Syed","addressLocality":"Rawalpindi","addressRegion":"Punjab","addressCountry":"PK"},"geo":{"@type":"GeoCoordinates","latitude":33.6351361,"longitude":73.0459888},"hasMap":"https://maps.app.goo.gl/ysWoVkoShM7eU1TB7","areaServed":"PK","sameAs":["https://www.facebook.com/optimusmedicals/"]}</script>
 </head>
 <body>
   <!-- ===================== Logo intro (first open) ===================== -->
@@ -713,7 +711,6 @@
                   <p class="cycle__step"><b>1</b>Supply</p>
                   <h3>The right equipment, bought or rented</h3>
                   <p>Matched to your patients, your space and your budget.</p>
-                  <ul class="ticks"><li>Diagnostic, patient-care and surgical</li><li>Outright purchase or rental</li><li>Advice on the right model</li></ul>
                   <a class="btn btn--solid" href="contact.html">Request a quote <svg aria-hidden="true"><use href="#arrow"/></svg></a>
                 </div>
               </article>
@@ -723,8 +720,7 @@
                   <p class="cycle__step"><b>2</b>Delivery and installation</p>
                   <h3>Delivered and set up on site</h3>
                   <p>Anywhere in Pakistan, installed and tested before handover.</p>
-                  <ul class="ticks"><li>Careful nationwide delivery</li><li>Installation by our technicians</li><li>Commissioned and tested on site</li></ul>
-                  <a class="btn btn--solid" href="contact.html">Ask about delivery <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+                  <a class="btn btn--solid" href="#faq-delivery">How delivery works <svg aria-hidden="true"><use href="#arrow"/></svg></a>
                 </div>
               </article>
               <article class="cycle__panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" data-reveal-m>
@@ -733,8 +729,7 @@
                   <p class="cycle__step"><b>3</b>Staff training</p>
                   <h3>Your team confident from day one</h3>
                   <p>Hands-on training at handover, and again when new staff join.</p>
-                  <ul class="ticks"><li>On site at your facility</li><li>Doctors, nurses and technicians</li><li>Safe operation and daily care</li></ul>
-                  <a class="btn btn--solid" href="contact.html">Arrange training <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+                  <a class="btn btn--solid" href="#faq-training">How training works <svg aria-hidden="true"><use href="#arrow"/></svg></a>
                 </div>
               </article>
               <article class="cycle__panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" data-reveal-m>
@@ -743,8 +738,7 @@
                   <p class="cycle__step"><b>4</b>Maintenance and support</p>
                   <h3>Kept running for its whole life</h3>
                   <p>Preventive maintenance, repairs and warranty claims handled.</p>
-                  <ul class="ticks"><li>Scheduled preventive maintenance</li><li>Repairs and replacement parts</li><li>Support by phone and WhatsApp</li></ul>
-                  <a class="btn btn--solid" href="contact.html">Book a service <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+                  <a class="btn btn--solid" href="contact.html?topic=maintenance">Arrange maintenance <svg aria-hidden="true"><use href="#arrow"/></svg></a>
                 </div>
               </article>
             </div>
@@ -799,16 +793,20 @@
         <div class="faq__side" data-reveal>
           <h2 id="faq-title" class="display">Questions hospitals ask us.</h2>
           <p>Can't find your answer? Our team replies on WhatsApp during working hours.</p>
-          <a class="btn btn--line" href="https://wa.me/923258852525" target="_blank" rel="noopener">Ask on WhatsApp <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          <a class="btn btn--line" href="https://wa.me/923258852525?text=Hello%20Optimus%20Medical%2C%0A%0AWe%20have%20a%20question%20about%20your%20equipment%20and%20services%3A%0A%0A" target="_blank" rel="noopener">Ask on WhatsApp <svg aria-hidden="true"><use href="#arrow"/></svg></a>
         </div>
         <div class="faq__list" data-reveal style="--d:.1s">
-          <details open>
+          <details>
             <summary>What equipment do you supply?<i aria-hidden="true"></i></summary>
             <p>Diagnostic machines, surgical instruments, patient monitoring systems, laboratory devices and hospital furniture, for purchase or rental.</p>
           </details>
-          <details>
-            <summary>Do you deliver outside Islamabad?<i aria-hidden="true"></i></summary>
-            <p>Yes. We deliver and install equipment for hospitals, clinics and labs across Pakistan.</p>
+          <details id="faq-delivery">
+            <summary>Do you deliver outside Rawalpindi and Islamabad?<i aria-hidden="true"></i></summary>
+            <p>Yes. We deliver across Pakistan, then our technicians install, commission and test the equipment on site before handover.</p>
+          </details>
+          <details id="faq-training">
+            <summary>Do you train our staff?<i aria-hidden="true"></i></summary>
+            <p>Yes. Our team trains your doctors, nurses and technicians on site, covering safe operation and daily care of each device.</p>
           </details>
           <details>
             <summary>Do you provide after-sales support?<i aria-hidden="true"></i></summary>
@@ -820,7 +818,7 @@
           </details>
           <details>
             <summary>How do I place an order?<i aria-hidden="true"></i></summary>
-            <p>Request a quote online, message us on WhatsApp, email us, or visit our Islamabad office for a consultation.</p>
+            <p>Request a quote online, message us on WhatsApp, email us, or visit our office in Rawalpindi for a consultation.</p>
           </details>
         </div>
       </div>
@@ -836,7 +834,7 @@
             <p>Tell us what you need. We'll come back with options and a quote.</p>
             <div class="closing__actions">
               <a class="btn btn--bright" href="contact.html">Request a quote <svg aria-hidden="true"><use href="#arrow"/></svg></a>
-              <a class="btn btn--ghost" href="https://wa.me/923258852525" target="_blank" rel="noopener">Message on WhatsApp</a>
+              <a class="btn btn--ghost" href="https://wa.me/923258852525?text=Hello%20Optimus%20Medical%2C%0A%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0A%0AThank%20you." target="_blank" rel="noopener">Message on WhatsApp</a>
             </div>
           </div>
         </div>
@@ -850,8 +848,8 @@
       <div class="ticker__label"><i class="ticker__pulse" aria-hidden="true"></i><b><span>Optimus </span>Update</b></div>
       <div class="ticker__viewport">
         <div class="ticker__track">
-          <ul class="ticker__list"><li>Biomedical equipment</li><li>Delivery and installation across Pakistan</li><li>Buy or rent</li><li>Maintenance and repair support</li><li>Public, government and private sectors</li><li>25 years in medical supply</li><li>Based in Islamabad</li></ul>
-          <ul class="ticker__list" aria-hidden="true"><li>Biomedical equipment</li><li>Delivery and installation across Pakistan</li><li>Buy or rent</li><li>Maintenance and repair support</li><li>Public, government and private sectors</li><li>25 years in medical supply</li><li>Based in Islamabad</li></ul>
+          <ul class="ticker__list"><li>Biomedical equipment</li><li>Delivery and installation across Pakistan</li><li>Buy or rent</li><li>Maintenance and repair support</li><li>Public, government and private sectors</li><li>25 years in medical supply</li><li>Based in Rawalpindi</li></ul>
+          <ul class="ticker__list" aria-hidden="true"><li>Biomedical equipment</li><li>Delivery and installation across Pakistan</li><li>Buy or rent</li><li>Maintenance and repair support</li><li>Public, government and private sectors</li><li>25 years in medical supply</li><li>Based in Rawalpindi</li></ul>
         </div>
       </div>
       <a class="ticker__end" href="contact.html" aria-label="Request a quote"><svg aria-hidden="true"><use href="#arrow"/></svg></a>
@@ -864,9 +862,9 @@
           <p>Biomedical equipment supplied, installed and maintained for hospitals and clinics across Pakistan.</p>
           <!-- Replace each href with the company's real profile link, or delete the item -->
           <ul class="social">
-            <li><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a></li>
-            <li><a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10 9.5v5l4.5-2.5z"/></svg></a></li>
-            <li><a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20" /></svg></a></li>
+            <li><a href="https://www.facebook.com/optimusmedicals/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V9a.5.5 0 0 1 .5-.5z"/></svg></a></li>
+            <li><a href="https://wa.me/923258852525?text=Hello%20Optimus%20Medical%2C%0A%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0A%0AThank%20you." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20.5l1.2-4A8.3 8.3 0 1 1 8.4 19.4z"/><path d="M9.2 8.8c0 3.2 2.4 5.9 5.5 6.1l1.1-1.5-1.8-.9-.9.7c-1.1-.5-2-1.4-2.5-2.5l.7-.9-.9-1.8z"/></svg></a></li>
+            <li><a href="https://maps.app.goo.gl/ysWoVkoShM7eU1TB7" target="_blank" rel="noopener" aria-label="Find us on Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6.5-6.1 6.5-11.5a6.5 6.5 0 0 0-13 0C5.5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></a></li>
           </ul>
         </div>
         <div class="footer__col footer__col--explore" data-reveal style="--d:.1s">
@@ -881,9 +879,9 @@
         <div class="footer__col footer__col--contact" data-reveal style="--d:.2s">
           <h3>Get in touch</h3>
           <ul class="contact-list">
-            <li><a href="mailto:info@optimusmedicalpak.com"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="6" width="20" height="14" rx="2"/><path d="M3.5 7l9.5 7 9.5-7"/></svg></i><span><small>Email</small><b>info@optimusmedicalpak.com</b></span></a></li>
-            <li><a href="https://wa.me/923258852525" target="_blank" rel="noopener"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 21.5l1.3-4.4A9 9 0 1 1 9 20.3z"/><path d="M10 9.5c0 3.5 2.6 6.4 6 6.6l1.2-1.6-2-1-1 .8c-1.2-.5-2.2-1.5-2.7-2.7l.8-1-1-2z"/></svg></i><span><small>WhatsApp</small><b>+92 325 885 2525</b></span></a></li>
-            <li><div class="contact-item"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M13 23s7-6.6 7-12.5a7 7 0 0 0-14 0C6 16.4 13 23 13 23z"/><circle cx="13" cy="10.5" r="2.6"/></svg></i><span><small>Office</small><b>Islamabad, Pakistan</b></span></div></li>
+            <li><a href="mailto:info@optimusmedicalpak.com?subject=Enquiry%20from%20your%20website&amp;body=Dear%20Optimus%20Medical%20team%2C%0D%0A%0D%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0D%0A%0D%0AKind%20regards%2C%0D%0A"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="6" width="20" height="14" rx="2"/><path d="M3.5 7l9.5 7 9.5-7"/></svg></i><span><small>Email</small><b>info@optimusmedicalpak.com</b></span></a></li>
+            <li><a href="https://wa.me/923258852525?text=Hello%20Optimus%20Medical%2C%0A%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0A%0AThank%20you." target="_blank" rel="noopener"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 21.5l1.3-4.4A9 9 0 1 1 9 20.3z"/><path d="M10 9.5c0 3.5 2.6 6.4 6 6.6l1.2-1.6-2-1-1 .8c-1.2-.5-2.2-1.5-2.7-2.7l.8-1-1-2z"/></svg></i><span><small>WhatsApp</small><b>+92 325 885 2525</b></span></a></li>
+            <li><a href="https://maps.app.goo.gl/ysWoVkoShM7eU1TB7" target="_blank" rel="noopener"><i><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M13 23s7-6.6 7-12.5a7 7 0 0 0-14 0C6 16.4 13 23 13 23z"/><circle cx="13" cy="10.5" r="2.6"/></svg></i><span><small>Office</small><b>Sector 2, Khayaban-e-Sir Syed, Rawalpindi</b></span></a></li>
           </ul>
         </div>
       </div>
@@ -1135,7 +1133,11 @@
           if (href.length < 2) return;                       // placeholder links like "#"
           var el = document.getElementById(href.slice(1));
           if (!el) return;
-          scrollToY(targetY(el), function () {
+          if (el.tagName === "DETAILS") {
+            document.querySelectorAll(".faq details[open]").forEach(function (d) { if (d !== el) d.open = false; });
+            el.open = true;
+          }
+          scrollToY(targetY(el) - (el.tagName === "DETAILS" ? 96 : 0), function () {
             if (history.pushState) history.pushState(null, "", href);
             if (el.id !== "top") { if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); }
           });

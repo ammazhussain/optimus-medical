@@ -233,8 +233,8 @@
           </div>
         </div>
         <div class="contact-strip">
-          <a href="https://wa.me/923258852525" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 13.5l.8-2.7A5.6 5.6 0 1 1 5.4 13z"/></svg>+92 325 885 2525</a>
-          <a href="mailto:info@optimusmedicalpak.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 4.5l5.5 4 5.5-4"/></svg>info@optimusmedicalpak.com</a>
+          <a id="stripWa" href="https://wa.me/923258852525" target="_blank" rel="noopener" title="Opens WhatsApp with your equipment list as a draft"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 13.5l.8-2.7A5.6 5.6 0 1 1 5.4 13z"/></svg>+92 325 885 2525</a>
+          <a id="stripMail" href="mailto:info@optimusmedicalpak.com" title="Opens your email app with your equipment list as a draft"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 4.5l5.5 4 5.5-4"/></svg>info@optimusmedicalpak.com</a>
         </div>
       </section>
 
@@ -303,13 +303,13 @@
         <ul class="foot__links">
           <li><a href="index.html">Home</a></li>
           <li><a href="inventory.html">Equipment</a></li>
-          <li><a href="https://wa.me/923258852525" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="mailto:info@optimusmedicalpak.com">Email</a></li>
+          <li><a href="https://wa.me/923258852525?text=Hello%20Optimus%20Medical%2C%0A%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0A%0AThank%20you." target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:info@optimusmedicalpak.com?subject=Enquiry%20from%20your%20website&amp;body=Dear%20Optimus%20Medical%20team%2C%0D%0A%0D%0AWe%20would%20like%20to%20know%20more%20about%20your%20medical%20equipment%20and%20services.%20Please%20get%20in%20touch%20at%20your%20convenience.%0D%0A%0D%0AKind%20regards%2C%0D%0A">Email</a></li>
         </ul>
       </div>
       <div class="foot__legal">
         <span>© <span id="year">2026</span> Optimus Medical. All rights reserved.</span>
-        <span>Islamabad, Pakistan</span>
+        <a href="https://maps.app.goo.gl/ysWoVkoShM7eU1TB7" target="_blank" rel="noopener">Sector 2, Khayaban-e-Sir Syed, Rawalpindi</a>
       </div>
     </div>
   </footer>
@@ -398,7 +398,7 @@
       var c = payload.customer;
       var lines = ["*Quote request " + payload.reference + "*", "", "Name: " + c.name, "Phone: " + c.phone];
       if (c.email) lines.push("Email: " + c.email);
-      lines.push("Ordering as: " + (c.type === "company" ? "Company / organisation" : "Private customer"));
+      lines.push("Ordering as: " + (c.type === "company" ? "Company" : "Private customer"));
       if (c.organisation) lines.push("Organisation: " + c.organisation);
       if (payload.items.length) {
         lines.push("", "*Equipment*");
@@ -587,6 +587,47 @@
       win.addEventListener("pageshow", function () { doc.body.classList.remove("is-leaving"); });
 
       paint();
+
+      /* ---------- Topic links from the homepage (e.g. ?topic=maintenance) ---------- */
+      var TOPICS = {
+        maintenance: "We would like to arrange maintenance and support for our medical equipment. Please contact us to discuss a service visit.",
+        delivery: "We would like to discuss delivery and installation of medical equipment at our facility.",
+        training: "We would like to arrange training for our staff on medical equipment."
+      };
+      var topic = (location.search.match(/[?&]topic=([a-z]+)/) || [])[1];
+      if (topic && TOPICS[topic] && !$("message").value) $("message").value = TOPICS[topic];
+
+      /* ---------- WhatsApp and email drafts with the equipment list ---------- */
+      function draftLines() {
+        var name = $("name").value.trim();
+        var company = (form.querySelector('input[name="type"]:checked') || {}).value === "company";
+        var org = company ? $("org").value.trim() : "";
+        var L = [];
+        if (selection.length) {
+          L.push("We would like a quotation for the following equipment:", "");
+          selection.forEach(function (x, i) {
+            var e = byId[x.id];
+            L.push((i + 1) + ". " + e.name + " (" + e.model + "), " + (x.intent === "rent" ? "rent" : "purchase") + ", quantity " + x.quantity);
+          });
+          L.push("", "Please share pricing, availability and delivery time.");
+        } else {
+          L.push("We would like to discuss our medical equipment requirements. Please contact us at your convenience.");
+        }
+        var sign = [name, org].filter(Boolean);
+        return { body: L, sign: sign };
+      }
+      $("stripWa").addEventListener("click", function () {
+        var d = draftLines();
+        var text = ["Hello Optimus Medical,", ""].concat(d.body, ["", "Thank you."], d.sign.length ? [d.sign.join(", ")] : []);
+        this.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text.join("\n"));
+      });
+      $("stripMail").addEventListener("click", function () {
+        var d = draftLines();
+        var subject = selection.length ? "Quotation request: " + selection.length + (selection.length === 1 ? " item" : " items") : "Equipment enquiry";
+        if (d.sign.length) subject += " from " + d.sign[d.sign.length - 1];
+        var text = ["Dear Optimus Medical team,", ""].concat(d.body, ["", "Kind regards,"], d.sign);
+        this.href = "mailto:info@optimusmedicalpak.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text.join("\r\n"));
+      });
       $("year").textContent = new Date().getFullYear();
     })();
   </script>
